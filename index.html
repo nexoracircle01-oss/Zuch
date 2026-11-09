@@ -1,151 +1,187 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#000000">
-<title>Zuch</title>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zuch – Math Mastery</title>
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="logo.jpg">
-<link rel="apple-touch-icon" href="logo.jpg">
+<meta name="theme-color" content="#4f46e5">
 <style>
-:root{--bg:#000;--card:#141416;--line:#2a2a2e;--tx:#fff;--mut:#9a9aa3;--ac:#8fb8ff;--ok:#3ddc97;--bad:#ff6b6b}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Naskh Arabic",sans-serif}
-body{max-width:520px;margin:0 auto;padding:env(safe-area-inset-top) 16px calc(84px + env(safe-area-inset-bottom))}
-header{display:flex;align-items:center;gap:10px;padding:14px 0}
-.lg{width:40px;height:40px;border-radius:10px;overflow:hidden;background:#000;border:1px solid var(--line);flex:none}
-.lg img{width:100%;height:100%;display:block;transform:scale(2.4)}
-.lg.big{width:96px;height:96px;border-radius:24px}.lg.big img{transform:scale(2.6)}
-header b{font-size:20px;letter-spacing:.5px;flex:1}
-button{font:inherit;color:inherit;cursor:pointer}
-.pill{background:none;border:1px solid var(--line);border-radius:99px;padding:6px 14px}
-h1{font-size:28px;line-height:1.2;margin:8px 0 4px}
-p.s{color:var(--mut);margin:0 0 18px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
-.card.lock{opacity:.45}
-.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.btns{display:flex;gap:8px;margin-top:12px}
-.btn{flex:1;border:1px solid var(--line);background:none;border-radius:12px;padding:11px;text-align:center}
-.btn.p{background:var(--tx);color:#000;border-color:var(--tx);font-weight:600}
-.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin-top:10px}
-.bar i{display:block;height:100%;background:var(--ac)}
-.opt{display:block;width:100%;text-align:start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px;font-size:17px}
-.opt.ok{border-color:var(--ok);background:#0f2a20}.opt.bad{border-color:var(--bad);background:#2d1415}
-.q{font-size:22px;line-height:1.35;margin:18px 0}
-.big-n{font-size:64px;font-weight:700;text-align:center;margin:14px 0 0}
-.c{text-align:center}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.stats .card{margin:0}.stats b{font-size:26px;display:block}
-nav{position:fixed;left:0;right:0;bottom:0;background:#000;border-top:1px solid var(--line);display:flex;max-width:520px;margin:0 auto;padding-bottom:env(safe-area-inset-bottom)}
-nav button{flex:1;background:none;border:0;padding:16px;color:var(--mut)}
-nav button.on{color:var(--tx);font-weight:700;box-shadow:inset 0 2px 0 var(--ac)}
-[dir=rtl]{text-align:right}
-button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
-</style>
-</head>
-<body>
-<header><div class="lg"><img src="logo.jpg" alt=""></div><b>Zuch</b><button class="pill" id="lang"></button></header>
+:root{--bg:#f5f6fb;--c:#fff;--t:#1b1d2a;--m:#6b7080;--p:#4f46e5;--ok:#16a34a;--no:#dc2626;--b:#e3e5ee}
+@media(prefers-color-scheme:dark){:root{--bg:#12131a;--c:#1c1e29;--t:#eceef7;--m:#9aa0b4;--b:#2d3040}}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--t);padding-bottom:72px}
+header{background:var(--p);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:5}
+header img{width:32px;height:32px;border-radius:8px}header b{flex:1;font-size:18px}
+main{max-width:640px;margin:0 auto;padding:12px}
+.card{background:var(--c);border:1px solid var(--b);border-radius:14px;padding:14px;margin:10px 0}
+.q{font-size:20px;font-weight:600;margin-bottom:12px;line-height:1.4}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:4px 0}
+.chip{border:1px solid var(--b);background:var(--c);color:var(--t);border-radius:99px;padding:7px 13px;white-space:nowrap;font-size:14px}
+.chip.on{background:var(--p);color:#fff;border-color:var(--p)}
+.o{display:block;width:100%;text-align:left;padding:13px;margin:8px 0;border:2px solid var(--b);border-radius:12px;background:var(--c);color:var(--t);font-size:17px}
+.o.sel{border-color:var(--p)}.o.ok{border-color:var(--ok);background:#16a34a22}.o.no{border-color:var(--no);background:#dc262622}
+.btn{background:var(--p);color:#fff;border:0;border-radius:12px;padding:13px 18px;font-size:16px;width:100%;margin-top:6px}
+.btn.g{background:var(--m)}
+.exp{background:var(--bg);border-radius:10px;padding:10px;margin-top:8px;font-size:15px}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--c);border-top:1px solid var(--b)}
+nav button{flex:1;padding:12px 0;border:0;background:none;color:var(--m);font-size:13px}nav button.on{color:var(--p);font-weight:700}
+nav span{display:block;font-size:20px}
+.bar{height:8px;background:var(--b);border-radius:9px;overflow:hidden;flex:1}.bar i{display:block;height:100%;background:var(--p)}
+.row{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:14px}.row .n{width:78px;color:var(--m)}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.stats div{text-align:center}.stats b{font-size:24px;display:block}
+select{width:100%;padding:11px;border-radius:10px;border:1px solid var(--b);background:var(--c);color:var(--t);font-size:16px;margin:6px 0}
+.sm{color:var(--m);font-size:13px}
+</style></head><body>
+<header><img src="logo.jpg" alt="" onerror="this.style.display='none'"><b>Zuch</b><span id="hd"></span></header>
 <main id="app"></main>
-<nav><button id="n-home"></button><button id="n-prog"></button></nav>
+<nav>
+<button onclick="go('practice')" id="n1"><span>✏️</span>Practice</button>
+<button onclick="go('test')" id="n2"><span>📝</span>Test</button>
+<button onclick="go('progress')" id="n3"><span>📊</span>Progress</button>
+</nav>
 <script>
-const T={en:{home:"Home",prog:"Progress",hi:"Learn from Class 8 to Mastery",sub:"Practice, take quizzes, and track how you grow.",prac:"Practice",quiz:"Quiz",lock:"Score 3/4 in the previous level to unlock",best:"Best",next:"Next",fin:"Finish",ok:"Correct!",no:"Wrong. Right answer is highlighted.",res:"Your score",again:"Try again",back:"Back to levels",xp:"XP",acc:"Accuracy",att:"Quizzes taken",mast:"Mastery achieved",reset:"Reset progress",sure:"Delete all progress?",pm:"Practice mode: no score saved",q:"Question"},
-sd:{home:"گهر",prog:"ترقي",hi:"ڪلاس 8 کان ماسٽري تائين سکو",sub:"مشق ڪريو، ڪوئز ڏيو ۽ پنهنجي ترقي ڏسو.",prac:"مشق",quiz:"ڪوئز",lock:"ان کي کولڻ لاءِ اڳئين ليول ۾ 4 مان 3 نمبر ڪريو",best:"بهترين",next:"ايندڙ",fin:"ختم",ok:"صحيح!",no:"غلط. صحيح جواب نشان زد آهي.",res:"توهان جو اسڪور",again:"ٻيهر ڪوشش ڪريو",back:"ليولز تي واپس",xp:"XP",acc:"درستگي",att:"ڏنل ڪوئز",mast:"ماسٽري حاصل ٿي",reset:"ترقي ري سيٽ ڪريو",sure:"سڀ ترقي ختم ڪريون؟",pm:"مشق موڊ: اسڪور محفوظ نه ٿيندو",q:"سوال"}};
-const L=[["Class 8","ڪلاس 8"],["Class 9","ڪلاس 9"],["Class 10","ڪلاس 10"],["Class 11–12","ڪلاس 11–12"],["Mastery","ماسٽري"]];
-// [English, Sindhi, options ("en|sd" or plain), correct index]
-const Q=[
-[["What is 12²?","12² ڪيترو آهي؟",["124","144","164","134"],1],
- ["Square root of 81?","81 جو جذر ڪيترو آهي؟",["7","8","9","10"],2],
- ["25% of 200 is?","200 جو 25% ڪيترو آهي؟",["25","50","75","100"],1],
- ["Which gas do plants take in for photosynthesis?","ٻوٽا ضياء تاليف لاءِ ڪهڙي گيس وٺن ٿا؟",["Oxygen|آڪسيجن","Carbon dioxide|ڪاربن ڊاءِ آڪسائيڊ","Nitrogen|نائيٽروجن","Hydrogen|هائيڊروجن"],1]],
-[["Expand (x+3)²","(x+3)² کي کوليو",["x²+9","x²+6x+9","x²+3x+9","x²+6x+6"],1],
- ["A car goes 120 km in 2 hours. Its speed?","ڪار 2 ڪلاڪن ۾ 120 ڪلوميٽر هلي. رفتار ڪيتري؟",["40 km/h","60 km/h","80 km/h","240 km/h"],1],
- ["Sum of angles in a triangle?","ٽڪنڊي جي زاولن جو مجموعو؟",["90°","180°","270°","360°"],1],
- ["SI unit of force?","قوت جو SI يونٽ ڪهڙو آهي؟",["Newton|نيوٽن","Joule|جول","Watt|واٽ","Pascal|پاسڪل"],0]],
-[["Roots of x²−5x+6=0?","x²−5x+6=0 جا جذر؟",["2, 3","1, 6","−2, −3","5, 1"],0],
- ["sin 30° = ?","sin 30° ڪيترو آهي؟",["1/2","√3/2","1","0"],0],
- ["10th term of 2, 5, 8, …?","2, 5, 8, … جو 10 هون رڪن؟",["29","32","27","30"],0],
- ["Ohm's law: V = ?","اوهم جو قانون: V = ؟",["I × R","I ÷ R","R ÷ I","I + R"],0]],
-[["d/dx of x³ ?","x³ جو تفرق؟",["3x²","x²","3x","x³/3"],0],
- ["∫ 2x dx = ?","∫ 2x dx = ؟",["x² + C","2x² + C","x + C","2 + C"],0],
- ["log₁₀ 1000 = ?","log₁₀ 1000 ڪيترو؟",["1","2","3","10"],2],
- ["pH of pure water at 25°C?","25°C تي صاف پاڻي جو pH؟",["0","7","14","1"],1]],
-[["1 + 2 + 3 + … + 100 = ?","1 + 2 + 3 + … + 100 = ؟",["5000","5050","5100","5150"],1],
- ["e^(iπ) + 1 = ?","e^(iπ) + 1 = ؟",["0","1","−1","i"],0],
- ["Ways to arrange the letters of MATH?","MATH جي اکرن کي ڪيترن طرحين ترتيب ڏئي سگهجي؟",["12","16","24","32"],2],
- ["lim (x→0) sin x / x = ?","lim (x→0) sin x / x = ؟",["0","1","∞","−1"],1]]
-];
-let S;try{S=JSON.parse(localStorage.zuch)}catch(e){}
-S=S||{lang:"en",p:{},xp:0};
-const save=()=>{try{localStorage.zuch=JSON.stringify(S)}catch(e){}};
-const t=k=>T[S.lang][k], sd=()=>S.lang==="sd";
-const pick=(a)=>{const p=String(a).split("|");return sd()&&p[1]?p[1]:p[0]};
-const $=s=>document.querySelector(s), app=$("#app");
-let view="home", run=null;
-const open=i=>i===0||(S.p[i-1]&&S.p[i-1].best>=3);
-
-function chrome(){
-  document.documentElement.lang=S.lang;
-  $("#lang").textContent=sd()?"English":"سنڌي";
-  $("#n-home").textContent=t("home");$("#n-prog").textContent=t("prog");
-  $("#n-home").className=view!=="prog"?"on":"";$("#n-prog").className=view==="prog"?"on":"";
+// ---------- helpers ----------
+const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,P=a=>a[R(0,a.length-1)];
+const gcd=(a,b)=>b?gcd(b,a%b):Math.abs(a);
+const F=(n,d)=>{const g=gcd(n,d)||1;n/=g;d/=g;if(d<0){n=-n;d=-d}return d==1?''+n:n+'/'+d};
+const sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+function mc(q,ans,wr,exp){
+  ans=''+ans;let w=[...new Set(wr.map(String))].filter(x=>x!==ans);
+  if(/^-?\d+(\.\d+)?$/.test(ans)){let n=+ans,k=1;
+    while(w.length<3){let c=''+(n+(k%2?k:-k)*Math.max(1,Math.round(Math.abs(n)*.1)));k++;if(c!==ans&&!w.includes(c))w.push(c)}}
+  else for(const x of['None of these','All of these','Cannot be determined'])if(w.length<3)w.push(x);
+  const o=sh([ans,...w.slice(0,3)]);return{q,o,a:o.indexOf(ans),e:exp};
+}
+// ---------- question bank (class 8 -> advanced) ----------
+const G={
+sq:['Squares',[
+()=>{let n=R(11,29);return mc(`${n}² = ?`,n*n,[n*n+n,n*n-n,(n+1)*(n+1)+2],`${n} × ${n} = ${n*n}`)},
+()=>{let n=R(12,45);return mc(`√${n*n} = ?`,n,[n+1,n-1,n+2,n*2],`${n} × ${n} = ${n*n}`)},
+()=>{let p=P([2,3,5,6,7]),k=R(2,6);return mc(`Smallest number to multiply ${p*k*k} by to get a perfect square?`,p,[2*p,p+1,k,p*k],`${p*k*k} = ${p} × ${k}² → multiply by ${p}`)}]],
+cu:['Cubes',[
+()=>{let n=R(2,12);return mc(`${n}³ = ?`,n**3,[n*n*3,n**3+n,n**3-n],`${n}×${n}×${n} = ${n**3}`)},
+()=>{let n=R(3,25);return mc(`∛${n**3} = ?`,n,[n+1,n-1,n*3],`${n}³ = ${n**3}`)},
+()=>{let a=R(2,5),b=R(2,5);return mc(`∛(${a**3} × ${b**3}) = ?`,a*b,[a+b,a*b+1,a**3*b],`∛(a³b³) = ab = ${a*b}`)}]],
+ex:['Exponents',[
+()=>{let a=P([2,3,5]),m=R(2,6),n=R(2,6);return mc(`${a}^${m} × ${a}^${n} = ${a}^?`,m+n,[m*n,m+n+1,m+n-1],`Powers add: ${m}+${n} = ${m+n}`)},
+()=>{let a=P([2,3]),m=R(2,5),n=R(2,5);return mc(`(${a}^${m})^${n} = ${a}^?`,m*n,[m+n,m*n+1,m*n-1],`Powers multiply: ${m}×${n}`)},
+()=>{let b=P([2,3,5]),n=R(2,4);return mc(`${b}^-${n} = ?`,'1/'+b**n,['-'+b**n,'1/'+b*n,''+b**n,'-1/'+b**n],`a^-n = 1/a^n = 1/${b**n}`)}]],
+le:['Linear Eq.',[
+()=>{let x=R(2,20),a=R(2,15);return mc(`x + ${a} = ${x+a}. x = ?`,x,[x+a,x-1,x+1],`x = ${x+a} − ${a}`)},
+()=>{let x=R(2,12),a=R(2,9),b=R(1,15);return mc(`${a}x + ${b} = ${a*x+b}. x = ?`,x,[x+1,x-1,a*x],`${a}x = ${a*x}, x = ${x}`)},
+()=>{let x=R(2,9),a=R(3,9),c=R(1,a-1),b=R(1,20),d=b+(a-c)*x;return mc(`${a}x + ${b} = ${c}x + ${d}. x = ?`,x,[x+1,x-1,x+2],`(${a}−${c})x = ${d}−${b} → x = ${x}`)}]],
+pc:['Percentage',[
+()=>{let p=P([10,20,25,50]),n=R(2,20)*20;return mc(`${p}% of ${n} = ?`,p*n/100,[p*n/100+5,n/p,p*n/10],`${p}/100 × ${n}`)},
+()=>{let c=P([200,400,500,800]),p=P([10,20,25]);return mc(`CP = ₹${c}, SP = ₹${c*(1+p/100)}. Profit % = ?`,p+'%',[p+5+'%',p*2+'%',p-5+'%'],`Profit ${c*p/100} / ${c} × 100 = ${p}%`)},
+()=>{let a=P([10,20,30]),b=P([10,20,50]),n=a+b-a*b/100;return mc(`Successive discounts ${a}% and ${b}%. Net discount = ?`,n+'%',[a+b+'%',n+5+'%',Math.abs(a-b)+'%'],`Net = ${a}+${b} − (${a}×${b})/100 = ${n}%`)}]],
+in:['Interest',[
+()=>{let p=R(1,20)*500,r=P([4,5,8,10]),t=R(2,5),s=p*r*t/100;return mc(`SI on ₹${p} at ${r}% for ${t} yrs?`,'₹'+s,['₹'+(s+p/10),'₹'+s*2,'₹'+(s-r*t)],`SI = PRT/100 = ${s}`)},
+()=>{let p=R(1,9)*1000,r=P([10,20]),a=p*(1+r/100)**2,ci=Math.round(a-p);return mc(`CI on ₹${p} at ${r}% p.a. for 2 yrs (yearly)?`,'₹'+ci,['₹'+p*r*2/100,'₹'+(ci+p/10),'₹'+(ci-p/20)],`A = P(1+r/100)² = ${Math.round(a)}; CI = A − P = ${ci}`)},
+()=>{let p=R(1,10)*1000,r=P([5,6,8,10]),t=R(2,4),s=p*r*t/100;return mc(`SI = ₹${s}, P = ₹${p}, T = ${t} yrs. Rate = ?`,r+'%',[r+2+'%',r-1+'%',r*2+'%'],`R = SI×100/(P×T) = ${r}%`)}]],
+id:['Identities',[
+()=>{let a=R(2,9),b=R(2,9);return mc(`a=${a}, b=${b}. (a+b)² = ?`,(a+b)**2,[a*a+b*b,(a+b)**2+2*a*b,a*a-b*b],`(a+b)² = ${(a+b)**2}`)},
+()=>{let x=R(51,99),y=100-x;return mc(`${x}² − ${y}² = ?`,100*(x-y),[x*x-y,100*(x+y),100*(x-y)+100],`(x+y)(x−y) = 100 × ${x-y}`)},
+()=>{let a=R(2,6),b=R(2,6),s=a+b,p=a*b;return mc(`a+b = ${s}, ab = ${p}. a²+b² = ?`,s*s-2*p,[s*s,s*s-p,s*s+2*p],`a²+b² = (a+b)² − 2ab`)}]],
+ra:['Rational',[
+()=>{let a=R(1,5),b=R(2,7),c=R(1,5),d=R(2,7);return mc(`${a}/${b} + ${c}/${d} = ?`,F(a*d+b*c,b*d),[F(a+c,b+d),F(a*d-b*c,b*d),F(a*c,b*d),F(a*d+b*c,b+d)],`LCD method: (${a}×${d}+${b}×${c})/${b*d}`)},
+()=>{let a=R(1,6),b=R(2,7),c=R(1,6),d=R(2,7);return mc(`${a}/${b} × ${c}/${d} = ?`,F(a*c,b*d),[F(a+c,b+d),F(a*d,b*c),F(a*c,b+d),F(a*d+b*c,b*d)],`Multiply tops and bottoms`)},
+()=>{let a=R(1,6),b=R(2,7),c=R(1,6),d=R(2,7);return mc(`${a}/${b} ÷ ${c}/${d} = ?`,F(a*d,b*c),[F(a*c,b*d),F(b*c,a*d),F(a*d,b*d),F(a+d,b+c)],`Flip second fraction and multiply`)}]],
+me:['Mensuration',[
+()=>{let b=2*R(2,12),h=R(3,15);return mc(`Triangle: base ${b} cm, height ${h} cm. Area?`,b*h/2+' cm²',[b*h+' cm²',b+h+' cm²',b*h/2+b+' cm²'],`½ × ${b} × ${h}`)},
+()=>{let a=2*R(2,6),b=2*R(2,7),h=R(3,10);return mc(`Trapezium: parallel sides ${a}, ${b}, height ${h}. Area?`,(a+b)*h/2+' sq units',[(a+b)*h+' sq units',a*b*h/2+' sq units',(a+b)*h/2+h+' sq units'],`½(a+b)h`)},
+()=>{let r=P([7,14]),h=R(2,10);return mc(`Cylinder r = ${r}, h = ${h} (π = 22/7). Volume?`,22*r*r*h/7+' cu units',[2*22*r*h/7+' cu units',22*r*r*h/7+r+' cu units',22*r*r*h/21+' cu units'],`V = πr²h`)}]],
+ro:['Ratio',[
+()=>{let a=R(1,5),b=R(a+1,8),k=R(2,9);return mc(`Divide ₹${(a+b)*k} in ratio ${a}:${b}. Smaller share?`,'₹'+a*k,['₹'+b*k,'₹'+(a*k+k),'₹'+(a+b)],`1 part = ${k}; smaller = ${a}×${k}`)},
+()=>{let a=R(2,6),b=R(3,9),m=R(2,6);return mc(`${a}:${b} = ${a*m}:x. x = ?`,b*m,[b+m,b*m+1,a*m+b],`Multiply both by ${m}`)},
+()=>{let a=R(1,5),b=R(2,7),c=R(1,5),d=R(2,7),g=gcd(a*c,b*d);return mc(`A:B = ${a}:${b} and B:C = ${c}:${d}. A:C = ?`,`${a*c/g}:${b*d/g}`,[`${a*d}:${b*c}`,`${a+c}:${b+d}`,`${b*c}:${a*d}`],`A:C = ${a}×${c} : ${b}×${d}`)}]],
+fa:['Factorise',[
+()=>{let k=R(2,6),a=R(2,5),b=R(1,6);return mc(`Factorise: ${k*a}x + ${k*b}`,`${k}(${a}x + ${b})`,[`${a}(${k}x + ${b})`,`${k}(${a}x − ${b})`,`${k}(${a}x + ${b+k})`],`Take ${k} common`)},
+()=>{let a=R(2,9),b=R(2,9);return mc(`Factorise: x² + ${a+b}x + ${a*b}`,`(x+${a})(x+${b})`,[`(x−${a})(x−${b})`,`(x+${a})(x−${b})`,`(x+${a*b})(x+1)`],`Numbers with sum ${a+b}, product ${a*b}`)},
+()=>{let n=R(2,12);return mc(`Factorise: x² − ${n*n}`,`(x+${n})(x−${n})`,[`(x−${n})²`,`(x+${n})²`,`(x+${n+1})(x−${n+1})`],`a² − b² = (a+b)(a−b)`)}]],
+pr:['Data & Prob.',[
+()=>{let k=R(1,4);return mc(`Die rolled once. P(number > ${k}) = ?`,F(6-k,6),[F(k,6),F(7-k,6),F(6-k,5),F(1,6)],`${6-k} favourable of 6`)},
+()=>{let m=R(5,20),d=[R(-3,3),R(-4,4),R(-2,2),R(-5,5)];d.push(-d.reduce((a,b)=>a+b,0));let v=d.map(x=>m+x);return mc(`Mean of ${v.join(', ')} = ?`,m,[m+1,m-1,m+2],`Sum ÷ 5 = ${m}`)},
+()=>{let a=[];while(a.length<6)a.push(R(2,40));a.sort((x,y)=>x-y);return mc(`Median of ${sh(a).join(', ')} = ?`,(a[2]+a[3])/2,[a[2],a[3],(a[1]+a[4])/2+1],`Sort; average of middle two (${a[2]}, ${a[3]})`)}]]
+};
+const TK=Object.keys(G),LV=['Basic','Medium','Advanced'];
+// ---------- state ----------
+let S={};try{S=JSON.parse(localStorage.zuch)||{}}catch(e){}
+S.st=S.st||{};S.xp=S.xp||0;S.sk=S.sk||0;S.hist=S.hist||[];S.tot=S.tot||0;S.cor=S.cor||0;
+const sv=()=>{try{localStorage.zuch=JSON.stringify(S)}catch(e){}};
+let V='practice',T='sq',L=1,cur=null,pick_=null,test=null,tm=null;
+function rec(t,l,ok){
+  const k=t+l,a=S.st[k]=S.st[k]||[];a.push(ok?1:0);if(a.length>10)a.shift();
+  S.tot++;if(ok){S.cor++;S.xp+=10*l}
+  const d=new Date().toDateString();
+  if(S.day!==d){S.sk=S.day===new Date(Date.now()-864e5).toDateString()?S.sk+1:1;S.day=d}
+  sv();
+}
+const acc=(t,l)=>{const a=S.st[t+l]||[];return a.length?a.reduce((x,y)=>x+y,0)/a.length:0};
+const mast=(t,l)=>(S.st[t+l]||[]).length>=8&&acc(t,l)>=.8;
+const topicMastered=t=>[1,2,3].every(l=>mast(t,l));
+// ---------- views ----------
+const $=s=>document.getElementById(s);
+function go(v){V=v;if(v!=='test'&&test&&!test.done){clearInterval(tm);test=null}render()}
+function qcard(q,sel,show,cb){
+  return `<div class=card><div class=q>${q.q}</div>`+q.o.map((o,i)=>
+    `<button class="o ${show?(i==q.a?'ok':i==sel?'no':''):(i===sel?'sel':'')}" onclick="${cb}(${i})">${'ABCD'[i]}. ${o}</button>`).join('')+'</div>';
+}
+function chips(){
+  return `<div class=chips>`+TK.map(k=>`<button class="chip ${k==T?'on':''}" onclick="T='${k}';cur=null;render()">${topicMastered(k)?'🏆 ':''}${G[k][0]}</button>`).join('')+`</div>
+  <div class=chips>`+LV.map((n,i)=>`<button class="chip ${L==i+1?'on':''}" onclick="L=${i+1};cur=null;render()">${n}${mast(T,i+1)?' ⭐':''}</button>`).join('')+`</div>`;
+}
+function vPractice(){
+  if(!cur){cur=G[T][1][L-1]();pick_=null}
+  const done=pick_!==null;
+  return chips()+qcard(cur,pick_,done,'ans')+(done?`<div class=card><b>${pick_==cur.a?'✅ Sahi! +'+10*L+' XP':'❌ Galat'}</b><div class=exp>💡 ${cur.e}</div><button class=btn onclick="cur=null;render()">Next question →</button></div>`:'');
+}
+function ans(i){if(pick_!==null)return;pick_=i;rec(T,L,i==cur.a);render()}
+function vTest(){
+  if(!test)return `<div class=card><div class=q>Practice Test</div>
+  <label class=sm>Topic</label><select id=tt><option value=all>All topics (mixed)</option>${TK.map(k=>`<option value=${k}>${G[k][0]}</option>`).join('')}</select>
+  <label class=sm>Level</label><select id=tl><option value=0>Mixed</option>${LV.map((n,i)=>`<option value=${i+1}>${n}</option>`).join('')}</select>
+  <label class=sm>Questions</label><select id=tn><option>10</option><option>20</option><option>30</option></select>
+  <p class=sm>⏱ Har question ke liye 1 minute. Result ke baad poora review milega.</p>
+  <button class=btn onclick=startTest()>Start Test</button></div>`;
+  if(test.done){
+    const sc=test.q.filter((q,i)=>test.a[i]===q.a).length,n=test.q.length;
+    return `<div class=card style="text-align:center"><div class=sm>Score</div><b style="font-size:44px">${sc}/${n}</b><div>${Math.round(sc/n*100)}% • ${sc/n>=.8?'🌟 Mastery level!':sc/n>=.5?'👍 Achha, aur practice karo':'💪 Revise karo aur dobara try karo'}</div>
+    <button class=btn onclick="test=null;render()">New Test</button></div>`+
+    test.q.map((q,i)=>qcard({...q,q:`Q${i+1}. ${q.q}`},test.a[i],true,'void')+`<div class=exp style="margin:-4px 0 10px">${test.a[i]===q.a?'✅':'❌'} ${q.e}</div>`).join('');
+  }
+  const q=test.q[test.i],last=test.i==test.q.length-1;
+  return `<div class=row><span class=sm>Q ${test.i+1}/${test.q.length}</span><div class=bar><i style="width:${test.i/test.q.length*100}%"></i></div><b id=tm></b></div>`+
+    qcard(q,test.a[test.i],false,'tpick')+`<button class=btn onclick="${last?'finish()':'tnext()'}">${last?'Submit Test':'Next →'}</button>`;
+}
+function startTest(){
+  const t=$('tt').value,l=+$('tl').value,n=+$('tn').value,q=[];
+  for(let i=0;i<n;i++){const tk=t=='all'?P(TK):t,lv=l||R(1,3);const x=G[tk][1][lv-1]();x.t=tk;x.l=lv;q.push(x)}
+  test={q,a:Array(n).fill(null),i:0,left:n*60,done:false};
+  tm=setInterval(()=>{test.left--;const e=$('tm');if(e)e.textContent=Math.floor(test.left/60)+':'+String(test.left%60).padStart(2,'0');if(test.left<=0)finish()},1000);
+  render();
+}
+function tpick(i){test.a[test.i]=i;render()}
+function tnext(){test.i++;render()}
+function finish(){
+  clearInterval(tm);if(test.done)return;test.done=true;
+  let sc=0;test.q.forEach((q,i)=>{const ok=test.a[i]===q.a;if(ok)sc++;rec(q.t,q.l,ok)});
+  S.hist.unshift({d:new Date().toLocaleDateString(),s:sc,n:test.q.length});S.hist=S.hist.slice(0,10);sv();render();
+}
+function vProgress(){
+  const n=TK.filter(topicMastered).length;
+  return `<div class="card stats"><div><b>⚡ ${S.xp}</b>XP</div><div><b>🔥 ${S.sk}</b>Day streak</div>
+  <div><b>${S.tot?Math.round(S.cor/S.tot*100):0}%</b>Accuracy</div><div><b>🏆 ${n}/${TK.length}</b>Topics mastered</div></div>
+  <div class=card><b>Topic-wise mastery</b><div class=sm>Last 10 answers per level • 80%+ (min 8 answers) = ⭐</div>`+
+  TK.map(k=>`<div style="margin-top:12px"><b>${G[k][0]}</b>${topicMastered(k)?' 🏆':''}`+[1,2,3].map(l=>`<div class=row><span class=n>${LV[l-1]}</span><div class=bar><i style="width:${acc(k,l)*100}%"></i></div><span>${Math.round(acc(k,l)*100)}%${mast(k,l)?' ⭐':''}</span></div>`).join('')+`</div>`).join('')+`</div>
+  <div class=card><b>Recent tests</b>${S.hist.length?S.hist.map(h=>`<div class=row><span class=sm>${h.d}</span><div class=bar><i style="width:${h.s/h.n*100}%"></i></div><b>${h.s}/${h.n}</b></div>`).join(''):'<div class=sm>Abhi koi test nahi diya.</div>'}</div>
+  <button class="btn g" onclick="if(confirm('Saara progress delete karna hai?')){localStorage.removeItem('zuch');location.reload()}">Reset progress</button>`;
 }
 function render(){
-  chrome();app.dir=sd()?"rtl":"ltr";
-  if(view==="home")home();else if(view==="quiz")quiz();else if(view==="res")result();else prog();
+  $('app').innerHTML=V=='practice'?vPractice():V=='test'?vTest():vProgress();
+  ['practice','test','progress'].forEach((v,i)=>$('n'+(i+1)).className=V==v?'on':'');
+  $('hd').textContent='⚡'+S.xp+'  🔥'+S.sk;
+  if(test&&!test.done&&V=='test'){const e=$('tm');if(e)e.textContent=Math.floor(test.left/60)+':'+String(test.left%60).padStart(2,'0')}
+  window.scrollTo(0,0);
 }
-function home(){
-  let h=`<div class="c"><div class="lg big" style="margin:6px auto 14px"><img src="logo.jpg" alt="Zuch"></div></div><h1>${t("hi")}</h1><p class="s">${t("sub")}</p>`;
-  L.forEach((l,i)=>{const p=S.p[i],ok=open(i);
-    h+=`<div class="card ${ok?"":"lock"}"><div class="row"><b>${pick(l.join("|"))}</b><span style="color:var(--mut)">${p?t("best")+" "+p.best+"/4":""}</span></div>`+
-    (ok?`<div class="btns"><button class="btn" data-m="p" data-i="${i}">${t("prac")}</button><button class="btn p" data-m="q" data-i="${i}">${t("quiz")}</button></div>`:`<p class="s" style="margin:8px 0 0">${t("lock")}</p>`)+`</div>`;});
-  app.innerHTML=h;
-  app.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{run={li:+b.dataset.i,mode:b.dataset.m,i:0,score:0,done:false};view="quiz";render()});
-}
-function quiz(){
-  const set=Q[run.li],q=set[run.i],n=set.length;
-  let h=`<div class="row"><span style="color:var(--mut)">${pick(L[run.li].join("|"))} · ${t("q")} ${run.i+1}/${n}</span>${run.mode==="p"?`<span style="color:var(--mut);font-size:13px">${t("pm")}</span>`:""}</div>
-  <div class="bar"><i style="width:${run.i/n*100}%"></i></div><div class="q">${sd()?q[1]:q[0]}</div>`;
-  q[2].forEach((o,k)=>h+=`<button class="opt" data-k="${k}">${pick(o)}</button>`);
-  h+=`<div id="fb" class="c" style="min-height:28px"></div><div id="nx"></div>`;
-  app.innerHTML=h;
-  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
-    if(run.done)return;run.done=true;const k=+b.dataset.k,good=k===q[3];
-    if(good)run.score++;
-    app.querySelectorAll(".opt").forEach((x,j)=>{if(j===q[3])x.classList.add("ok");else if(j===k)x.classList.add("bad")});
-    $("#fb").innerHTML=`<b style="color:var(--${good?"ok":"bad"})">${good?t("ok"):t("no")}</b>`;
-    $("#nx").innerHTML=`<button class="btn p" style="width:100%">${run.i===n-1?t("fin"):t("next")}</button>`;
-    $("#nx button").onclick=()=>{run.done=false;if(run.i===n-1)finish();else{run.i++;render()}};
-  });
-}
-function finish(){
-  if(run.mode==="q"){const p=S.p[run.li]||{best:0,att:0,c:0,t:0};
-    p.best=Math.max(p.best,run.score);p.att++;p.c+=run.score;p.t+=Q[run.li].length;
-    S.p[run.li]=p;S.xp+=run.score*10;save();}
-  view="res";render();
-}
-function result(){
-  const n=Q[run.li].length;
-  app.innerHTML=`<div class="c"><p class="s" style="margin-top:20px">${t("res")}</p><div class="big-n">${run.score}/${n}</div>
-  <p class="s" style="margin-top:10px">${run.mode==="q"?"+"+run.score*10+" XP":t("pm")}</p></div>
-  <div class="btns"><button class="btn" id="b1">${t("back")}</button><button class="btn p" id="b2">${t("again")}</button></div>`;
-  $("#b1").onclick=()=>{view="home";render()};
-  $("#b2").onclick=()=>{run={li:run.li,mode:run.mode,i:0,score:0,done:false};view="quiz";render()};
-}
-function prog(){
-  let c=0,tt=0,a=0;Object.values(S.p).forEach(p=>{c+=p.c;tt+=p.t;a+=p.att});
-  let h=`<h1>${t("prog")}</h1><div class="stats"><div class="card"><b>${S.xp}</b>${t("xp")}</div><div class="card"><b>${tt?Math.round(c/tt*100):0}%</b>${t("acc")}</div><div class="card"><b>${a}</b>${t("att")}</div><div class="card"><b>${Object.keys(S.p).length}/${L.length}</b>${t("home")}</div></div>`;
-  L.forEach((l,i)=>{const b=S.p[i]?S.p[i].best:0;
-    h+=`<div class="card"><div class="row"><b>${pick(l.join("|"))}</b><span>${b}/4</span></div><div class="bar"><i style="width:${b/4*100}%"></i></div></div>`;});
-  if(S.p[4]&&S.p[4].best===4)h+=`<div class="card c" style="border-color:var(--ac)"><b>★ ${t("mast")}</b></div>`;
-  h+=`<div class="c" style="margin-top:16px"><button class="pill" id="rs">${t("reset")}</button></div>`;
-  app.innerHTML=h;
-  $("#rs").onclick=()=>{if(confirm(t("sure"))){S={lang:S.lang,p:{},xp:0};save();render()}};
-}
-$("#lang").onclick=()=>{S.lang=sd()?"en":"sd";save();render()};
-$("#n-home").onclick=()=>{view="home";render()};
-$("#n-prog").onclick=()=>{view="prog";render()};
+const voidf=()=>{};window.void=voidf;
 render();
-</script>
-</body>
-</html>
+</script></body></html>
