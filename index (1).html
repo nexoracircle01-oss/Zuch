@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Zuch</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="logo.jpg">
+<link rel="apple-touch-icon" href="logo.jpg">
+<style>
+:root{--bg:#000;--card:#141416;--line:#2a2a2e;--tx:#fff;--mut:#9a9aa3;--ac:#8fb8ff;--ok:#3ddc97;--bad:#ff6b6b}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Naskh Arabic",sans-serif}
+body{max-width:520px;margin:0 auto;padding:env(safe-area-inset-top) 16px calc(84px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;gap:10px;padding:14px 0}
+.lg{width:40px;height:40px;border-radius:10px;overflow:hidden;background:#000;border:1px solid var(--line);flex:none}
+.lg img{width:100%;height:100%;display:block;transform:scale(2.4)}
+.lg.big{width:96px;height:96px;border-radius:24px}.lg.big img{transform:scale(2.6)}
+header b{font-size:20px;letter-spacing:.5px;flex:1}
+button{font:inherit;color:inherit;cursor:pointer}
+.pill{background:none;border:1px solid var(--line);border-radius:99px;padding:6px 14px}
+h1{font-size:28px;line-height:1.2;margin:8px 0 4px}
+p.s{color:var(--mut);margin:0 0 18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.card.lock{opacity:.45}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.btns{display:flex;gap:8px;margin-top:12px}
+.btn{flex:1;border:1px solid var(--line);background:none;border-radius:12px;padding:11px;text-align:center}
+.btn.p{background:var(--tx);color:#000;border-color:var(--tx);font-weight:600}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;background:var(--ac)}
+.opt{display:block;width:100%;text-align:start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px;font-size:17px}
+.opt.ok{border-color:var(--ok);background:#0f2a20}.opt.bad{border-color:var(--bad);background:#2d1415}
+.q{font-size:22px;line-height:1.35;margin:18px 0}
+.big-n{font-size:64px;font-weight:700;text-align:center;margin:14px 0 0}
+.c{text-align:center}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.stats .card{margin:0}.stats b{font-size:26px;display:block}
+nav{position:fixed;left:0;right:0;bottom:0;background:#000;border-top:1px solid var(--line);display:flex;max-width:520px;margin:0 auto;padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;background:none;border:0;padding:16px;color:var(--mut)}
+nav button.on{color:var(--tx);font-weight:700;box-shadow:inset 0 2px 0 var(--ac)}
+[dir=rtl]{text-align:right}
+button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+</style>
+</head>
+<body>
+<header><div class="lg"><img src="logo.jpg" alt=""></div><b>Zuch</b><button class="pill" id="lang"></button></header>
+<main id="app"></main>
+<nav><button id="n-home"></button><button id="n-prog"></button></nav>
+<script>
+const T={en:{home:"Home",prog:"Progress",hi:"Learn from Class 8 to Mastery",sub:"Practice, take quizzes, and track how you grow.",prac:"Practice",quiz:"Quiz",lock:"Score 3/4 in the previous level to unlock",best:"Best",next:"Next",fin:"Finish",ok:"Correct!",no:"Wrong. Right answer is highlighted.",res:"Your score",again:"Try again",back:"Back to levels",xp:"XP",acc:"Accuracy",att:"Quizzes taken",mast:"Mastery achieved",reset:"Reset progress",sure:"Delete all progress?",pm:"Practice mode: no score saved",q:"Question"},
+sd:{home:"گهر",prog:"ترقي",hi:"ڪلاس 8 کان ماسٽري تائين سکو",sub:"مشق ڪريو، ڪوئز ڏيو ۽ پنهنجي ترقي ڏسو.",prac:"مشق",quiz:"ڪوئز",lock:"ان کي کولڻ لاءِ اڳئين ليول ۾ 4 مان 3 نمبر ڪريو",best:"بهترين",next:"ايندڙ",fin:"ختم",ok:"صحيح!",no:"غلط. صحيح جواب نشان زد آهي.",res:"توهان جو اسڪور",again:"ٻيهر ڪوشش ڪريو",back:"ليولز تي واپس",xp:"XP",acc:"درستگي",att:"ڏنل ڪوئز",mast:"ماسٽري حاصل ٿي",reset:"ترقي ري سيٽ ڪريو",sure:"سڀ ترقي ختم ڪريون؟",pm:"مشق موڊ: اسڪور محفوظ نه ٿيندو",q:"سوال"}};
+const L=[["Class 8","ڪلاس 8"],["Class 9","ڪلاس 9"],["Class 10","ڪلاس 10"],["Class 11–12","ڪلاس 11–12"],["Mastery","ماسٽري"]];
+// [English, Sindhi, options ("en|sd" or plain), correct index]
+const Q=[
+[["What is 12²?","12² ڪيترو آهي؟",["124","144","164","134"],1],
+ ["Square root of 81?","81 جو جذر ڪيترو آهي؟",["7","8","9","10"],2],
+ ["25% of 200 is?","200 جو 25% ڪيترو آهي؟",["25","50","75","100"],1],
+ ["Which gas do plants take in for photosynthesis?","ٻوٽا ضياء تاليف لاءِ ڪهڙي گيس وٺن ٿا؟",["Oxygen|آڪسيجن","Carbon dioxide|ڪاربن ڊاءِ آڪسائيڊ","Nitrogen|نائيٽروجن","Hydrogen|هائيڊروجن"],1]],
+[["Expand (x+3)²","(x+3)² کي کوليو",["x²+9","x²+6x+9","x²+3x+9","x²+6x+6"],1],
+ ["A car goes 120 km in 2 hours. Its speed?","ڪار 2 ڪلاڪن ۾ 120 ڪلوميٽر هلي. رفتار ڪيتري؟",["40 km/h","60 km/h","80 km/h","240 km/h"],1],
+ ["Sum of angles in a triangle?","ٽڪنڊي جي زاولن جو مجموعو؟",["90°","180°","270°","360°"],1],
+ ["SI unit of force?","قوت جو SI يونٽ ڪهڙو آهي؟",["Newton|نيوٽن","Joule|جول","Watt|واٽ","Pascal|پاسڪل"],0]],
+[["Roots of x²−5x+6=0?","x²−5x+6=0 جا جذر؟",["2, 3","1, 6","−2, −3","5, 1"],0],
+ ["sin 30° = ?","sin 30° ڪيترو آهي؟",["1/2","√3/2","1","0"],0],
+ ["10th term of 2, 5, 8, …?","2, 5, 8, … جو 10 هون رڪن؟",["29","32","27","30"],0],
+ ["Ohm's law: V = ?","اوهم جو قانون: V = ؟",["I × R","I ÷ R","R ÷ I","I + R"],0]],
+[["d/dx of x³ ?","x³ جو تفرق؟",["3x²","x²","3x","x³/3"],0],
+ ["∫ 2x dx = ?","∫ 2x dx = ؟",["x² + C","2x² + C","x + C","2 + C"],0],
+ ["log₁₀ 1000 = ?","log₁₀ 1000 ڪيترو؟",["1","2","3","10"],2],
+ ["pH of pure water at 25°C?","25°C تي صاف پاڻي جو pH؟",["0","7","14","1"],1]],
+[["1 + 2 + 3 + … + 100 = ?","1 + 2 + 3 + … + 100 = ؟",["5000","5050","5100","5150"],1],
+ ["e^(iπ) + 1 = ?","e^(iπ) + 1 = ؟",["0","1","−1","i"],0],
+ ["Ways to arrange the letters of MATH?","MATH جي اکرن کي ڪيترن طرحين ترتيب ڏئي سگهجي؟",["12","16","24","32"],2],
+ ["lim (x→0) sin x / x = ?","lim (x→0) sin x / x = ؟",["0","1","∞","−1"],1]]
+];
+let S;try{S=JSON.parse(localStorage.zuch)}catch(e){}
+S=S||{lang:"en",p:{},xp:0};
+const save=()=>{try{localStorage.zuch=JSON.stringify(S)}catch(e){}};
+const t=k=>T[S.lang][k], sd=()=>S.lang==="sd";
+const pick=(a)=>{const p=String(a).split("|");return sd()&&p[1]?p[1]:p[0]};
+const $=s=>document.querySelector(s), app=$("#app");
+let view="home", run=null;
+const open=i=>i===0||(S.p[i-1]&&S.p[i-1].best>=3);
+
+function chrome(){
+  document.documentElement.lang=S.lang;
+  $("#lang").textContent=sd()?"English":"سنڌي";
+  $("#n-home").textContent=t("home");$("#n-prog").textContent=t("prog");
+  $("#n-home").className=view!=="prog"?"on":"";$("#n-prog").className=view==="prog"?"on":"";
+}
+function render(){
+  chrome();app.dir=sd()?"rtl":"ltr";
+  if(view==="home")home();else if(view==="quiz")quiz();else if(view==="res")result();else prog();
+}
+function home(){
+  let h=`<div class="c"><div class="lg big" style="margin:6px auto 14px"><img src="logo.jpg" alt="Zuch"></div></div><h1>${t("hi")}</h1><p class="s">${t("sub")}</p>`;
+  L.forEach((l,i)=>{const p=S.p[i],ok=open(i);
+    h+=`<div class="card ${ok?"":"lock"}"><div class="row"><b>${pick(l.join("|"))}</b><span style="color:var(--mut)">${p?t("best")+" "+p.best+"/4":""}</span></div>`+
+    (ok?`<div class="btns"><button class="btn" data-m="p" data-i="${i}">${t("prac")}</button><button class="btn p" data-m="q" data-i="${i}">${t("quiz")}</button></div>`:`<p class="s" style="margin:8px 0 0">${t("lock")}</p>`)+`</div>`;});
+  app.innerHTML=h;
+  app.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{run={li:+b.dataset.i,mode:b.dataset.m,i:0,score:0,done:false};view="quiz";render()});
+}
+function quiz(){
+  const set=Q[run.li],q=set[run.i],n=set.length;
+  let h=`<div class="row"><span style="color:var(--mut)">${pick(L[run.li].join("|"))} · ${t("q")} ${run.i+1}/${n}</span>${run.mode==="p"?`<span style="color:var(--mut);font-size:13px">${t("pm")}</span>`:""}</div>
+  <div class="bar"><i style="width:${run.i/n*100}%"></i></div><div class="q">${sd()?q[1]:q[0]}</div>`;
+  q[2].forEach((o,k)=>h+=`<button class="opt" data-k="${k}">${pick(o)}</button>`);
+  h+=`<div id="fb" class="c" style="min-height:28px"></div><div id="nx"></div>`;
+  app.innerHTML=h;
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    if(run.done)return;run.done=true;const k=+b.dataset.k,good=k===q[3];
+    if(good)run.score++;
+    app.querySelectorAll(".opt").forEach((x,j)=>{if(j===q[3])x.classList.add("ok");else if(j===k)x.classList.add("bad")});
+    $("#fb").innerHTML=`<b style="color:var(--${good?"ok":"bad"})">${good?t("ok"):t("no")}</b>`;
+    $("#nx").innerHTML=`<button class="btn p" style="width:100%">${run.i===n-1?t("fin"):t("next")}</button>`;
+    $("#nx button").onclick=()=>{run.done=false;if(run.i===n-1)finish();else{run.i++;render()}};
+  });
+}
+function finish(){
+  if(run.mode==="q"){const p=S.p[run.li]||{best:0,att:0,c:0,t:0};
+    p.best=Math.max(p.best,run.score);p.att++;p.c+=run.score;p.t+=Q[run.li].length;
+    S.p[run.li]=p;S.xp+=run.score*10;save();}
+  view="res";render();
+}
+function result(){
+  const n=Q[run.li].length;
+  app.innerHTML=`<div class="c"><p class="s" style="margin-top:20px">${t("res")}</p><div class="big-n">${run.score}/${n}</div>
+  <p class="s" style="margin-top:10px">${run.mode==="q"?"+"+run.score*10+" XP":t("pm")}</p></div>
+  <div class="btns"><button class="btn" id="b1">${t("back")}</button><button class="btn p" id="b2">${t("again")}</button></div>`;
+  $("#b1").onclick=()=>{view="home";render()};
+  $("#b2").onclick=()=>{run={li:run.li,mode:run.mode,i:0,score:0,done:false};view="quiz";render()};
+}
+function prog(){
+  let c=0,tt=0,a=0;Object.values(S.p).forEach(p=>{c+=p.c;tt+=p.t;a+=p.att});
+  let h=`<h1>${t("prog")}</h1><div class="stats"><div class="card"><b>${S.xp}</b>${t("xp")}</div><div class="card"><b>${tt?Math.round(c/tt*100):0}%</b>${t("acc")}</div><div class="card"><b>${a}</b>${t("att")}</div><div class="card"><b>${Object.keys(S.p).length}/${L.length}</b>${t("home")}</div></div>`;
+  L.forEach((l,i)=>{const b=S.p[i]?S.p[i].best:0;
+    h+=`<div class="card"><div class="row"><b>${pick(l.join("|"))}</b><span>${b}/4</span></div><div class="bar"><i style="width:${b/4*100}%"></i></div></div>`;});
+  if(S.p[4]&&S.p[4].best===4)h+=`<div class="card c" style="border-color:var(--ac)"><b>★ ${t("mast")}</b></div>`;
+  h+=`<div class="c" style="margin-top:16px"><button class="pill" id="rs">${t("reset")}</button></div>`;
+  app.innerHTML=h;
+  $("#rs").onclick=()=>{if(confirm(t("sure"))){S={lang:S.lang,p:{},xp:0};save();render()}};
+}
+$("#lang").onclick=()=>{S.lang=sd()?"en":"sd";save();render()};
+$("#n-home").onclick=()=>{view="home";render()};
+$("#n-prog").onclick=()=>{view="prog";render()};
+render();
+</script>
+</body>
+</html>
