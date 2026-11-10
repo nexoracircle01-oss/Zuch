@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Two-link robot arm with angles theta1, theta2 and end point (x, y)">
+<title>Two-link robot arm with angles theta1, theta2 and end point (x, y)</title>
+<defs>
+<pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#D5DDE8" stroke-width="1"/></pattern>
+<marker id="arrI" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0F1D33"/></marker>
+<marker id="arrA" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#F2A900"/></marker>
+</defs>
+<style>.o{fill:none;stroke:#0F1D33;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.f{fill:#FFE9A8;stroke:#0F1D33;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+.w{fill:#fff;stroke:#0F1D33;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+.a{fill:none;stroke:#F2A900;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.d{stroke-dasharray:9 7}
+.th{stroke-width:2.5}
+.h{stroke:#1D4E8F;stroke-width:2;stroke-linecap:round}
+.en{font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:20px;fill:#0F1D33;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+.sd{font-family:'Noto Naskh Arabic','Noto Sans Arabic','Segoe UI',Arial,sans-serif;font-weight:700;font-size:20px;fill:#1D4E8F;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+.mono{font-family:'Courier New',Consolas,monospace}
+.nh{stroke:none}</style>
+<rect width="800" height="500" fill="#fff"/>
+<rect width="800" height="500" fill="url(#grid)"/>
+<text x="400" y="42" class="en" style="font-size:32px">Robot Arm</text>
+<text x="400" y="74" class="sd" style="font-size:26px">روبوٽ بازو</text>
+<line class="o" x1="130" y1="400" x2="560" y2="400" marker-end="url(#arrI)" style="stroke-width:2.5"/>
+<line class="o" x1="130" y1="400" x2="130" y2="110" marker-end="url(#arrI)" style="stroke-width:2.5"/>
+<line class="o d" x1="389.7477455336045" y1="168.6514948777486" x2="389.7477455336045" y2="400" style="stroke-width:2.5"/>
+<line class="o d" x1="389.7477455336045" y1="168.6514948777486" x2="130" y2="168.6514948777486" style="stroke-width:2.5"/>
+<line class="o d" x1="230.00000000000003" y1="226.79491924311228" x2="261.00000000000006" y2="173.1013442084771" style="stroke-width:2.5"/>
+<line x1="130" y1="400" x2="230.0" y2="226.8" stroke="#0F1D33" stroke-width="22" stroke-linecap="round"/>
+<line x1="130" y1="400" x2="230.0" y2="226.8" stroke="#FFE9A8" stroke-width="12" stroke-linecap="round"/>
+<line x1="230.0" y1="226.8" x2="389.7" y2="168.7" stroke="#0F1D33" stroke-width="22" stroke-linecap="round"/>
+<line x1="230.0" y1="226.8" x2="389.7" y2="168.7" stroke="#FFE9A8" stroke-width="12" stroke-linecap="round"/>
+<rect class="f" x="95" y="402" width="70" height="22" rx="4"/>
+<circle class="w" cx="130" cy="400" r="14"/><circle class="w" cx="230.0" cy="226.8" r="14"/>
+<circle cx="389.7" cy="168.7" r="11" fill="#F2A900" stroke="#0F1D33" stroke-width="4"/>
+<path class="a" d="M190 400 A60 60 0 0 0 160.0 348.0" marker-end="url(#arrA)" style="stroke-width:5"/>
+<text x="214" y="366" class="en" style="font-size:26px">θ₁</text>
+<path class="a" d="M257.5 179.2 A55 55 0 0 1 281.7 208.0" marker-end="url(#arrA)" style="stroke-width:5"/>
+<text x="274.0" y="150.79491924311228" class="en" style="font-size:26px">θ₂</text>
+<text x="150" y="300" class="en" style="font-size:24px">L₁</text>
+<text x="322" y="228" class="en" style="font-size:24px">L₂</text>
+<text x="389.7477455336045" y="428" class="en" style="font-size:26px">x</text>
+<text x="104" y="177.6514948777486" class="en" style="font-size:26px">y</text>
+<text x="467.7477455336045" y="164.6514948777486" class="en" style="font-size:26px">(x, y)</text>
+<text x="467.7477455336045" y="190.6514948777486" class="en" style="font-size:16px">End point</text>
+<text x="467.7477455336045" y="212.6514948777486" class="sd" style="font-size:17px">آخري نقطو</text>
+<text x="665" y="290" class="en" style="font-size:16px">θ₁ = first joint angle</text>
+<text x="665" y="312" class="sd" style="font-size:17px">پهرين جوڙ جو زاويو</text>
+<text x="665" y="346" class="en" style="font-size:16px">θ₂ = second joint angle</text>
+<text x="665" y="368" class="sd" style="font-size:17px">ٻئي جوڙ جو زاويو</text>
+<text x="665" y="402" class="en" style="font-size:16px">L₁, L₂ = link lengths</text>
+<text x="665" y="424" class="sd" style="font-size:17px">ڪڙين جي ڊيگهه</text>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Flowchart of a Python for loop printing 1 to 5">
+<title>Flowchart of a Python for loop printing 1 to 5</title>
+<defs>
+<pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#D5DDE8" stroke-width="1"/></pattern>
+<marker id="arrI" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0F1D33"/></marker>
+<marker id="arrA" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#F2A900"/></marker>
+</defs>
+<style>.o{fill:none;stroke:#0F1D33;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.f{fill:#FFE9A8;stroke:#0F1D33;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+.w{fill:#fff;stroke:#0F1D33;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+.a{fill:none;stroke:#F2A900;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.d{stroke-dasharray:9 7}
+.th{stroke-width:2.5}
+.h{stroke:#1D4E8F;stroke-width:2;stroke-linecap:round}
+.en{font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:20px;fill:#0F1D33;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+.sd{font-family:'Noto Naskh Arabic','Noto Sans Arabic','Segoe UI',Arial,sans-serif;font-weight:700;font-size:20px;fill:#1D4E8F;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+.mono{font-family:'Courier New',Consolas,monospace}
+.nh{stroke:none}</style>
+<rect width="800" height="500" fill="#fff"/>
+<rect width="800" height="500" fill="url(#grid)"/>
+<text x="400" y="42" class="en" style="font-size:32px">Python for Loop</text>
+<text x="400" y="74" class="sd" style="font-size:26px">Python فور لوپ</text>
+<ellipse class="f" cx="220" cy="100" rx="55" ry="22"/>
+<text x="220" y="106" class="en nh" style="font-size:18px">Start</text>
+<text x="325" y="106" class="sd" style="font-size:17px">شروع</text>
+<line class="o" x1="220" y1="122" x2="220" y2="143" marker-end="url(#arrI)"/>
+<rect class="w" x="160" y="144" width="120" height="36" rx="4"/>
+<text x="220" y="169" class="en nh" style="font-size:20px">i = 1</text>
+<text x="355" y="168" class="sd" style="font-size:16px">شروعاتي قيمت</text>
+<line class="o" x1="220" y1="180" x2="220" y2="204" marker-end="url(#arrI)"/>
+<path class="f" d="M220 205 L300 245 L220 285 L140 245 Z"/>
+<text x="220" y="252" class="en nh" style="font-size:20px">i ≤ 5 ?</text>
+<line class="o" x1="220" y1="285" x2="220" y2="326" marker-end="url(#arrI)"/>
+<text x="268" y="308" class="en" style="font-size:15px">Yes</text>
+<text x="300" y="322" class="sd" style="font-size:16px">ها</text>
+<rect class="w" x="160" y="327" width="120" height="36" rx="4"/>
+<text x="220" y="352" class="en nh" style="font-size:20px">print(i)</text>
+<text x="350" y="351" class="sd" style="font-size:16px">ڇاپيو</text>
+<line class="o" x1="220" y1="363" x2="220" y2="392" marker-end="url(#arrI)"/>
+<rect class="w" x="160" y="393" width="120" height="36" rx="4"/>
+<text x="220" y="418" class="en nh" style="font-size:20px">i = i + 1</text>
+<text x="355" y="417" class="sd" style="font-size:16px">i ۾ 1 وڌايو</text>
+<path class="o" d="M160 411 H100 V245 H138" marker-end="url(#arrI)"/>
+<text x="58" y="325" class="en" style="font-size:16px">Loop</text>
+<text x="58" y="347" class="sd" style="font-size:17px">لوپ</text>
+<line class="o" x1="300" y1="245" x2="383" y2="245" marker-end="url(#arrI)"/>
+<text x="342" y="232" class="en" style="font-size:15px">No</text>
+<text x="342" y="270" class="sd" style="font-size:16px">نه</text>
+<ellipse class="f" cx="430" cy="245" rx="45" ry="22"/>
+<text x="430" y="251" class="en nh" style="font-size:18px">End</text>
+<text x="430" y="288" class="sd" style="font-size:17px">ختم</text>
+<rect class="w" x="510" y="130" width="260" height="100" rx="8"/>
+<text x="524" y="170" class="en mono nh" style="font-size:17px;text-anchor:start">for i in range(1, 6):</text>
+<text x="554" y="204" class="en mono nh" style="font-size:17px;text-anchor:start">print(i)</text>
+<text x="640" y="118" class="en" style="font-size:16px">Python code</text>
+<rect class="f" x="510" y="272" width="260" height="56" rx="8"/>
+<text x="640" y="307" class="en mono nh" style="font-size:19px">Output: 1 2 3 4 5</text>
+<text x="640" y="356" class="sd" style="font-size:17px">نتيجو</text>
+</svg>

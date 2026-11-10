@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Binary place values 16, 8, 4, 2, 1 with example 10101 = 21">
+<title>Binary place values 16, 8, 4, 2, 1 with example 10101 = 21</title>
+<defs>
+<pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#D5DDE8" stroke-width="1"/></pattern>
+<marker id="arrI" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0F1D33"/></marker>
+<marker id="arrA" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#F2A900"/></marker>
+</defs>
+<style>.o{fill:none;stroke:#0F1D33;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.f{fill:#FFE9A8;stroke:#0F1D33;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+.w{fill:#fff;stroke:#0F1D33;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+.a{fill:none;stroke:#F2A900;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.d{stroke-dasharray:9 7}
+.th{stroke-width:2.5}
+.h{stroke:#1D4E8F;stroke-width:2;stroke-linecap:round}
+.en{font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:20px;fill:#0F1D33;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+.sd{font-family:'Noto Naskh Arabic','Noto Sans Arabic','Segoe UI',Arial,sans-serif;font-weight:700;font-size:20px;fill:#1D4E8F;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+.mono{font-family:'Courier New',Consolas,monospace}
+.nh{stroke:none}</style>
+<rect width="800" height="500" fill="#fff"/>
+<rect width="800" height="500" fill="url(#grid)"/>
+<text x="400" y="42" class="en" style="font-size:32px">Binary Numbers</text>
+<text x="400" y="74" class="sd" style="font-size:26px">بائنري انگ</text>
+<rect class="w" x="60" y="190" width="95" height="60" rx="8"/>
+<text x="107.5" y="232" class="en nh" style="font-size:32px">16</text>
+<text x="107.5" y="178" class="en" style="font-size:18px;fill:#1D4E8F">2⁴</text>
+<rect class="f" x="60" y="268" width="95" height="70" rx="8"/>
+<text x="107.5" y="316" class="en nh" style="font-size:42px">1</text>
+<rect class="w" x="163" y="190" width="95" height="60" rx="8"/>
+<text x="210.5" y="232" class="en nh" style="font-size:32px">8</text>
+<text x="210.5" y="178" class="en" style="font-size:18px;fill:#1D4E8F">2³</text>
+<rect class="w" x="163" y="268" width="95" height="70" rx="8"/>
+<text x="210.5" y="316" class="en nh" style="font-size:42px">0</text>
+<rect class="w" x="266" y="190" width="95" height="60" rx="8"/>
+<text x="313.5" y="232" class="en nh" style="font-size:32px">4</text>
+<text x="313.5" y="178" class="en" style="font-size:18px;fill:#1D4E8F">2²</text>
+<rect class="f" x="266" y="268" width="95" height="70" rx="8"/>
+<text x="313.5" y="316" class="en nh" style="font-size:42px">1</text>
+<rect class="w" x="369" y="190" width="95" height="60" rx="8"/>
+<text x="416.5" y="232" class="en nh" style="font-size:32px">2</text>
+<text x="416.5" y="178" class="en" style="font-size:18px;fill:#1D4E8F">2¹</text>
+<rect class="w" x="369" y="268" width="95" height="70" rx="8"/>
+<text x="416.5" y="316" class="en nh" style="font-size:42px">0</text>
+<rect class="w" x="472" y="190" width="95" height="60" rx="8"/>
+<text x="519.5" y="232" class="en nh" style="font-size:32px">1</text>
+<text x="519.5" y="178" class="en" style="font-size:18px;fill:#1D4E8F">2⁰</text>
+<rect class="f" x="472" y="268" width="95" height="70" rx="8"/>
+<text x="519.5" y="316" class="en nh" style="font-size:42px">1</text>
+<text x="680" y="214" class="en" style="font-size:18px">Place value</text>
+<text x="680" y="238" class="sd" style="font-size:18px">جڳهه جي قيمت</text>
+<text x="680" y="298" class="en" style="font-size:18px">Bit</text>
+<text x="680" y="324" class="sd" style="font-size:18px">بٽ</text>
+<text x="313" y="392" class="en" style="font-size:30px">16 + 4 + 1 = 21</text>
+<text x="313" y="432" class="en" style="font-size:20px">10101 in binary = 21 in decimal</text>
+<text x="313" y="464" class="sd" style="font-size:22px">بائنري 10101 = ڏهائي 21</text>
+</svg>

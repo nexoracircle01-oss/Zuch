@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Parabola y = x^2 - 2x - 3 with roots at x = -1 and x = 3">
+<title>Parabola y = x^2 - 2x - 3 with roots at x = -1 and x = 3</title>
+<defs>
+<pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#D5DDE8" stroke-width="1"/></pattern>
+<marker id="arrI" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0F1D33"/></marker>
+<marker id="arrA" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#F2A900"/></marker>
+</defs>
+<style>.o{fill:none;stroke:#0F1D33;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.f{fill:#FFE9A8;stroke:#0F1D33;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+.w{fill:#fff;stroke:#0F1D33;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+.a{fill:none;stroke:#F2A900;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.d{stroke-dasharray:9 7}
+.th{stroke-width:2.5}
+.h{stroke:#1D4E8F;stroke-width:2;stroke-linecap:round}
+.en{font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:20px;fill:#0F1D33;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+.sd{font-family:'Noto Naskh Arabic','Noto Sans Arabic','Segoe UI',Arial,sans-serif;font-weight:700;font-size:20px;fill:#1D4E8F;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+.mono{font-family:'Courier New',Consolas,monospace}
+.nh{stroke:none}</style>
+<rect width="800" height="500" fill="#fff"/>
+<rect width="800" height="500" fill="url(#grid)"/>
+<text x="400" y="42" class="en" style="font-size:32px">Quadratic Graph</text>
+<text x="400" y="74" class="sd" style="font-size:26px">ڪواڊريٽڪ گراف</text>
+<line class="o" x1="130" y1="280" x2="630" y2="280" marker-end="url(#arrI)" style="stroke-width:3"/>
+<line class="o" x1="320" y1="460" x2="320" y2="92" marker-end="url(#arrI)" style="stroke-width:3"/>
+<line class="o d" x1="380" y1="100" x2="380" y2="424" style="stroke-width:2;stroke:#97A6BC"/>
+<path class="o" d="M200.0 100.0 L206.0 121.2 L212.0 141.8 L218.0 161.6 L224.0 180.6 L230.0 199.0 L236.0 216.6 L242.0 233.6 L248.0 249.8 L254.0 265.2 L260.0 280.0 L266.0 294.0 L272.0 307.4 L278.0 320.0 L284.0 331.8 L290.0 343.0 L296.0 353.4 L302.0 363.2 L308.0 372.2 L314.0 380.4 L320.0 388.0 L326.0 394.8 L332.0 401.0 L338.0 406.4 L344.0 411.0 L350.0 415.0 L356.0 418.2 L362.0 420.8 L368.0 422.6 L374.0 423.6 L380.0 424.0 L386.0 423.6 L392.0 422.6 L398.0 420.8 L404.0 418.2 L410.0 415.0 L416.0 411.0 L422.0 406.4 L428.0 401.0 L434.0 394.8 L440.0 388.0 L446.0 380.4 L452.0 372.2 L458.0 363.2 L464.0 353.4 L470.0 343.0 L476.0 331.8 L482.0 320.0 L488.0 307.4 L494.0 294.0 L500.0 280.0 L506.0 265.2 L512.0 249.8 L518.0 233.6 L524.0 216.6 L530.0 199.0 L536.0 180.6 L542.0 161.6 L548.0 141.8 L554.0 121.2 L560.0 100.0" style="stroke-width:5"/>
+<circle cx="260" cy="280" r="9" fill="#F2A900" stroke="#0F1D33" stroke-width="3"/>
+<circle cx="500" cy="280" r="9" fill="#F2A900" stroke="#0F1D33" stroke-width="3"/>
+<circle cx="380" cy="424" r="9" fill="#F2A900" stroke="#0F1D33" stroke-width="3"/>
+<text x="225" y="314" class="en" style="font-size:18px">x = −1</text>
+<text x="535" y="314" class="en" style="font-size:18px">x = 3</text>
+<text x="380" y="330" class="en" style="font-size:17px">Roots</text>
+<text x="380" y="352" class="sd" style="font-size:18px">جڙ</text>
+<text x="480" y="404" class="en" style="font-size:17px">(1, −4)</text>
+<text x="480" y="428" class="en" style="font-size:16px">Vertex</text>
+<text x="480" y="450" class="sd" style="font-size:17px">چوٽي</text>
+<text x="612" y="296" class="en" style="font-size:24px">x</text>
+<text x="338" y="100" class="en" style="font-size:24px">y</text>
+<text x="665" y="150" class="en" style="font-size:22px">y = x² − 2x − 3</text>
+<text x="665" y="186" class="en" style="font-size:16px">y = 0 at the roots</text>
+<text x="665" y="210" class="sd" style="font-size:17px">جڙن تي y = 0</text>
+</svg>
