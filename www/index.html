@@ -5,11 +5,9 @@
 <title>Zuch</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <style>
-:root{--bg:#EEF2F7;--ink:#0F1D33;--mute:#5B6B82;--line:#C9D3E0;--card:#FFFFFF;--blue:#1B4B8F;--amber:#B97A10;--ok:#1F7A4D;--bad:#B3261E;
+:root{--bg:#EEF2F7;--ink:#0F1D33;--mute:#5B6B82;--line:#C9D3E0;--card:#FFFFFF;--blue:#1B4B8F;--btnt:#FFFFFF;--amber:#B97A10;--ok:#1F7A4D;--bad:#B3261E;--okbg:#1F7A4D22;--badbg:#B3261E22;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1424;--ink:#E6EDF7;--mute:#92A1B8;--line:#24344F;--card:#12203A;--blue:#6FA3F0;--amber:#E3A64A;--ok:#52C38B;--bad:#FF8A80;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0B1424;--ink:#E6EDF7;--mute:#92A1B8;--line:#24344F;--card:#12203A;--blue:#6FA3F0;--amber:#E3A64A;--ok:#52C38B;--bad:#FF8A80;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root{--bg:#0B1424;--ink:#E6EDF7;--mute:#92A1B8;--line:#24344F;--card:#12203A;--blue:#6FA3F0;--btnt:#0B1424;--amber:#E3A64A;--ok:#52C38B;--bad:#FF8A80;color-scheme:dark}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI","Noto Naskh Arabic",system-ui,sans-serif;
 background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:28px 28px;background-attachment:fixed}
@@ -25,13 +23,19 @@ h2{font:700 18px/1.3 Georgia,serif;margin:0 0 8px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
 .stats b{display:block;font-size:22px}
 .stats span{color:var(--mute);font-size:13px}
-nav{display:flex;gap:6px;margin:0 0 12px;overflow-x:auto}
-button{font:inherit;cursor:pointer;border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:4px;padding:10px 14px;min-height:44px}
-:root[data-theme="dark"] button,:root:not([data-theme="light"]) button{color:#0B1424}
+nav,.chips{display:flex;gap:6px;overflow-x:auto;margin:0 0 12px}
+button{font:inherit;cursor:pointer;border:1px solid var(--blue);background:var(--blue);color:var(--btnt);border-radius:4px;padding:10px 14px;min-height:44px}
 button.ghost{background:transparent;color:var(--blue)}
-nav button{flex:1;white-space:nowrap}
+nav button{flex:1;white-space:nowrap;padding:10px 8px}
 nav button.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
-button:focus-visible,input:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+button.chip{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:99px;white-space:nowrap;min-height:40px;padding:8px 14px}
+button.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+button.o{display:block;width:100%;text-align:left;margin:8px 0;background:var(--card);color:var(--ink);border:2px solid var(--line);padding:12px}
+button.o.ok{border-color:var(--ok);background:var(--okbg)}
+button.o.no{border-color:var(--bad);background:var(--badbg)}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+summary{cursor:pointer;min-height:32px}
+.qt{font-size:19px;font-weight:600;margin-bottom:8px;line-height:1.4}
 .s{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)}
 .s:last-child{border:0}
 .tag{font-size:13px;color:var(--mute);white-space:nowrap}
@@ -41,11 +45,79 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--amber);outline-
 input[type=text]{width:100%;padding:10px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);font:inherit}
 .ok{color:var(--ok)}.bad{color:var(--bad)}
 .ur{color:var(--mute);font-size:14px}
+.row{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:14px}
+.row .n{width:80px;color:var(--mute)}
+.row .bar{flex:1;margin:0}
 </style>
 </head>
 <body>
 <main id="app"></main>
 <script>
+const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,P=a=>a[R(0,a.length-1)];
+const gcd=(a,b)=>b?gcd(b,a%b):Math.abs(a);
+const F=(n,d)=>{const g=gcd(n,d)||1;n/=g;d/=g;return d==1?''+n:n+'/'+d};
+const sh=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const SUPD='⁰¹²³⁴⁵⁶⁷⁸⁹';
+const sup=n=>String(n).split('').map(d=>SUPD[d]).join('');
+const ter=(c,n)=>n==0?''+c:n==1?(c==1?'x':c+'x'):(c==1?'':c)+'x'+sup(n);
+function mc(q,ans,wr,e){
+  ans=''+ans;let w=[...new Set(wr.map(String))].filter(x=>x!==ans);
+  if(/^-?\d+$/.test(ans)){let n=+ans,k=1;while(w.length<3){const c=''+(n+(k%2?k:-k));k++;if(c!==ans&&!w.includes(c))w.push(c)}}
+  else{for(const x of['None of these','Cannot be determined','All of these'])if(w.length<3)w.push(x)}
+  const o=sh([ans,...w.slice(0,3)]);return{q:q,o:o,a:o.indexOf(ans),e:e};
+}
+const SIN={0:'0',30:'1/2',45:'√2/2',60:'√3/2',90:'1'},COS={0:'1',30:'√3/2',45:'√2/2',60:'1/2',90:'0'};
+const T={
+le:{n:'Linear Equations',
+en:'A linear equation has x with power 1. Goal: get x alone. Whatever you do to one side, do the same to the other side.',
+sd:'Linear equation ۾ x جي power 1 هوندي آهي. مقصد x کي اڪيلو ڪرڻ آهي. هڪ پاسي جيڪو ڪريو، ٻئي پاسي به اهو ئي ڪريو.',
+f:'ax + b = c  →  x = (c − b) / a',
+g:[
+()=>{const x=R(2,20),a=R(2,15);return mc(`x + ${a} = ${x+a}. Find x.`,x,[x+a,x-1,x+1],`Subtract ${a} from both sides: x = ${x+a} − ${a} = ${x}.`)},
+()=>{const x=R(2,12),a=R(2,9),b=R(1,15);return mc(`${a}x + ${b} = ${a*x+b}. Find x.`,x,[x+1,x-1,a*x],`${a}x = ${a*x+b} − ${b} = ${a*x}, so x = ${x}.`)},
+()=>{const x=R(2,9),a=R(3,9),c=R(1,a-1),b=R(1,20),d=b+(a-c)*x;return mc(`${a}x + ${b} = ${c}x + ${d}. Find x.`,x,[x+1,x-1,x+2],`Collect x terms: (${a}−${c})x = ${d}−${b}, so x = ${x}.`)}]},
+tr:{n:'Trigonometry',
+en:'In a right triangle: sin = opposite / hypotenuse, cos = adjacent / hypotenuse, tan = opposite / adjacent. Learn the values for 0°, 30°, 45°, 60°, 90°.',
+sd:'Right triangle ۾: sin = سامهون وارو پاسو ÷ hypotenuse، cos = ڀرسان وارو پاسو ÷ hypotenuse، tan = سامهون ÷ ڀرسان. 0°، 30°، 45°، 60°، 90° جون قيمتون ياد ڪريو.',
+f:'sin²θ + cos²θ = 1',
+g:[
+()=>{const A=P([0,30,45,60,90]),f=P(['sin','cos']),tab=f=='sin'?SIN:COS;return mc(`${f} ${A}° = ?`,tab[A],Object.values(tab),`Standard value: ${f} ${A}° = ${tab[A]}.`)},
+()=>{const t=P([[3,4,5],[5,12,13],[8,15,17],[7,24,25]]),a=t[0],b=t[1],c=t[2];return mc(`sin θ = ${a}/${c} and θ is acute. Find cos θ.`,`${b}/${c}`,[`${a}/${b}`,`${c}/${b}`,`${b}/${a}`],`The triangle has sides ${a}, ${b}, ${c}. cos θ = adjacent / hypotenuse = ${b}/${c}.`)},
+()=>{const k=R(2,9),A=P([30,60]),ans=A==30?''+k:k+'√3';return mc(`Right triangle: hypotenuse = ${2*k}, one angle = ${A}°. Length of the side opposite that angle?`,ans,[2*k,k+'√2',A==30?k+'√3':''+k,3*k],`opposite = hypotenuse × sin ${A}° = ${2*k} × ${A==30?'1/2':'√3/2'} = ${ans}.`)}]},
+de:{n:'Derivatives',
+en:'A derivative tells how fast something changes. Power rule: bring the power down as a multiplier, then reduce the power by 1.',
+sd:'Derivative ٻڌائي ٿي ته ڪا شيءِ ڪيتري تيزيءَ سان بدلجي ٿي. Power rule: power کي اڳيان ضرب ڪريو ۽ power مان 1 گھٽايو.',
+f:'d/dx (xⁿ) = n·xⁿ⁻¹',
+g:[
+()=>{const n=R(2,6);return mc(`d/dx of x${sup(n)} = ?`,ter(n,n-1),[ter(1,n-1),ter(n,n),ter(n-1,n-1),ter(n+1,n)],`Bring ${n} down and reduce the power by 1: ${ter(n,n-1)}.`)},
+()=>{const a=R(2,6),n=R(2,5);return mc(`d/dx of ${ter(a,n)} = ?`,ter(a*n,n-1),[ter(a,n-1),ter(a*n,n),ter(a*(n-1),n-1),ter(a*n+1,n-1)],`Multiply coefficient by power: ${a}×${n} = ${a*n}. New power = ${n-1}.`)},
+()=>{const a=R(2,5),b=R(2,9),k=R(1,6),v=2*a*k+b;return mc(`f(x) = ${a}x² + ${b}x. Find f′(${k}).`,v,[a*k*k+b*k,2*a*k,a*k+b,v+a],`f′(x) = ${2*a}x + ${b}. At x = ${k}: ${2*a}×${k} + ${b} = ${v}.`)}]},
+ma:{n:'Matrices',
+en:'A matrix is a grid of numbers. Determinant of a 2×2 matrix is ad − bc. To multiply, take a row of the first matrix with a column of the second.',
+sd:'Matrix انگن جو جدول آهي. 2×2 matrix جو determinant ad − bc آهي. ضرب لاءِ پهرين matrix جي row کي ٻي matrix جي column سان ضرب ڏيو.',
+f:'det [[a, b], [c, d]] = ad − bc',
+g:[
+()=>{const a=R(1,6),b=R(1,6),c=R(1,6),d=R(1,6);return mc(`Determinant of [[${a}, ${b}], [${c}, ${d}]] = ?`,a*d-b*c,[a*d+b*c,a*c-b*d,b*c-a*d],`det = ad − bc = ${a}×${d} − ${b}×${c} = ${a*d-b*c}.`)},
+()=>{const a=R(1,5),b=R(1,5),e=R(1,5),g=R(1,5);return mc(`A has first row [${a}, ${b}]. B has first column [${e}, ${g}]. Top-left element of A×B = ?`,a*e+b*g,[a*e,a*g+b*e,a+e+b+g],`Row 1 of A × column 1 of B: ${a}×${e} + ${b}×${g} = ${a*e+b*g}.`)},
+()=>{const x=R(2,9),D=4*x-6;return mc(`The matrix [[x, 2], [3, 4]] has determinant ${D}. Find x.`,x,[x+1,x-1,D],`det = 4x − 6 = ${D}, so 4x = ${D+6} and x = ${x}.`)}]},
+in:{n:'Integration',
+en:'Integration is the reverse of differentiation. Add 1 to the power, divide by the new power, and always write + C.',
+sd:'Integration، differentiation جو اُلٽو آهي. power ۾ 1 گڏيو، نئين power سان ورهايو، ۽ آخر ۾ هميشه + C لکو.',
+f:'∫ xⁿ dx = xⁿ⁺¹ / (n+1) + C',
+g:[
+()=>{const n=R(1,5);return mc(`∫ ${ter(1,n)} dx = ?`,`x${sup(n+1)}/${n+1} + C`,[`x${sup(n)}/${n} + C`,`${n+1}x${sup(n)} + C`,`x${sup(n+2)}/${n+2} + C`,`x${sup(n+1)} + C`],`Add 1 to the power (${n+1}) and divide by ${n+1}.`)},
+()=>{const n=R(1,4),k=R(1,4),a=(n+1)*k;return mc(`∫ ${ter(a,n)} dx = ?`,ter(k,n+1)+' + C',[ter(k,n)+' + C',ter(a,n+1)+' + C',ter(k+1,n+1)+' + C'],`${ter(a,n)} → ${a}·x${sup(n+1)}/${n+1} = ${ter(k,n+1)}, then add C.`)},
+()=>{const b=R(2,4),m=R(1,4);return mc(`Evaluate ∫ from 0 to ${b} of ${3*m}x² dx.`,m*b**3,[m*b*b,3*m*b**3,m*b**3+m,b**3],`∫ ${3*m}x² dx = ${m}x³. At ${b}: ${m}×${b**3} = ${m*b**3}. The lower limit 0 gives 0.`)}]},
+pr:{n:'Probability',
+en:'Probability = favourable outcomes ÷ total outcomes. Mean = sum of values ÷ number of values.',
+sd:'Probability = ڪامياب نتيجا ÷ ڪُل نتيجا. Mean = سڀني قيمتن جو جوڙ ÷ قيمتن جو تعداد.',
+f:'P(E) = n(E) / n(S)',
+g:[
+()=>{const k=R(1,4),l=[];for(let i=k+1;i<=6;i++)l.push(i);return mc(`A fair die is rolled. P(number > ${k}) = ?`,F(6-k,6),[F(k,6),F(7-k,6),F(1,6),F(6-k,5),F(3,6)],`Favourable: ${l.join(', ')} → ${6-k} out of 6.`)},
+()=>{const m=R(15,30),d=[R(-3,3),R(-4,4),R(-2,2),R(-5,5)];d.push(-d.reduce((x,y)=>x+y,0));const v=d.map(x=>m+x);return mc(`Mean of ${v.join(', ')} = ?`,m,[m+1,m-1,m+2],`Sum = ${v.reduce((x,y)=>x+y,0)}. Divide by 5 → ${m}.`)},
+()=>{const s=R(2,12),w=6-Math.abs(s-7);return mc(`Two fair dice are rolled. P(sum = ${s}) = ?`,F(w,36),[F(w+1,36),F(w,6),F(w,12),F(1,36)],`${w} of the 36 equally likely pairs give sum ${s}.`)}]}
+};
+const LV=['Basic','Medium','Advanced'];
 const SERIES=["Advanced Mathematics","Advanced Physics","Electrical Engineering","Electronics Engineering","Mechanical Engineering","Computer Science","Embedded Systems","Robotics Engineering","Control Systems","Sensors and Actuators","Artificial Intelligence","Computer Vision and Perception","Autonomous Robotics","Communication and Networking","Agricultural Robotics","Industrial Robotics","Medical Robotics","Humanoid and Bio-Inspired Robotics","Space Robotics","Underwater Robotics","Advanced Materials and Nanotechnology","Advanced Research and Future Technology","Robotics Manufacturing and Company Development"];
 const RANKS=["Robotics Beginner","Mathematics Explorer","Engineering Student","Electronics Apprentice","Mechanical Designer","Embedded Systems Developer","Robotics Programmer","Robotics Engineer","Autonomous Systems Engineer","AI Robotics Engineer","Advanced Robotics Researcher","Robotics Architect","Master Robotics Researcher","Chief Robotics Innovator"];
 const MATH=[
@@ -56,40 +128,76 @@ const MATH=[
 {q:"∫ 2x dx = ?",a:["x^2+c","x²+c","x^2","x²","x^2 + c","x² + c"],e:"∫ 2x dx = x² + C. / Constant C نه وسارڻ."}];
 let S;
 try{S=JSON.parse(localStorage.getItem("rea")||"null")}catch(e){S=null}
-S=S||{done:{},asked:0,right:0,xp:0,days:[],wrong:[]};
+S=S||{};
+S.done=S.done||{};S.asked=S.asked||0;S.right=S.right||0;S.xp=S.xp||0;S.days=S.days||[];S.wrong=S.wrong||[];S.st=S.st||{};S.mist=S.mist||[];
 function save(){try{localStorage.setItem("rea",JSON.stringify(S))}catch(e){}}
 function today(){return new Date().toISOString().slice(0,10)}
 if(!S.days.includes(today())){S.days.push(today());save()}
-let tab="home",quiz=null;
+let tab="home",quiz=null,PT="le",PL=1,cur=null,pick=null,rpick=null;
 const $=h=>{document.getElementById("app").innerHTML=h};
+const accT=(t,l)=>{const a=S.st[t+l]||[];return a.length?a.reduce((x,y)=>x+y,0)/a.length:0};
+const mast=(t,l)=>(S.st[t+l]||[]).length>=8&&accT(t,l)>=.8;
+const tm=t=>[1,2,3].every(l=>mast(t,l));
 function rankIdx(){return Math.min(RANKS.length-1,Object.keys(S.done).length)}
 function pct(){return Math.round(Object.keys(S.done).length/SERIES.length*100)}
 function acc(){return S.asked?Math.round(S.right/S.asked*100):0}
-function nav(){return `<nav>${[["home","Home"],["lib","Series"],["exam","Diagnostic"],["rev","Revision"]].map(t=>`<button class="${tab===t[0]?"on":""}" onclick="go('${t[0]}')">${t[1]}</button>`).join("")}</nav>`}
+function nav(){return `<nav>${[["home","Home"],["prac","Practice"],["lib","Series"],["exam","Diagnostic"],["rev","Revision"]].map(t=>`<button class="${tab===t[0]?"on":""}" onclick="go('${t[0]}')">${t[1]}</button>`).join("")}</nav>`}
 function go(t){tab=t;quiz=null;render()}
+function setT(k){PT=k;cur=null;render()}
+function setL(l){PL=l;cur=null;render()}
+function qcard(q,sel,cb){const show=sel!==null;return `<div class="card"><div class="qt">${q.q}</div>`+q.o.map((o,i)=>`<button class="o ${show?(i==q.a?'ok':i==sel?'no':''):''}" onclick="${cb}(${i})">${'ABCD'[i]}. ${o}</button>`).join('')+`</div>`}
+function ans(i){
+  if(pick!==null)return;pick=i;const ok=i==cur.a,k=PT+PL;
+  const a=S.st[k]=S.st[k]||[];a.push(ok?1:0);if(a.length>10)a.shift();
+  S.asked++;if(ok){S.right++;S.xp+=10*PL}
+  else{S.mist.unshift({t:PT,l:PL,q:cur});S.mist=S.mist.slice(0,30)}
+  save();render();
+}
+function vPractice(){
+  const t=T[PT];
+  let h=`<div class="chips">`+Object.keys(T).map(k=>`<button class="chip ${k==PT?'on':''}" onclick="setT('${k}')">${T[k].n}${tm(k)?' 🏆':''}</button>`).join('')+`</div><div class="chips">`+LV.map((n,i)=>`<button class="chip ${PL==i+1?'on':''}" onclick="setL(${i+1})">${n}${mast(PT,i+1)?' ⭐':''}</button>`).join('')+`</div>`;
+  h+=`<details class="card"><summary><b>Lesson: ${t.n}</b></summary><p>${t.en}</p><p class="ur">${t.sd}</p><p><b>Key idea:</b> ${t.f}</p></details>`;
+  if(!cur){cur=t.g[PL-1]();pick=null}
+  h+=qcard(cur,pick,'ans');
+  if(pick!==null)h+=`<div class="card"><b class="${pick==cur.a?'ok':'bad'}">${pick==cur.a?'Correct! +'+10*PL+' XP':'Incorrect'}</b><p>${cur.e}</p><button onclick="cur=null;render()">Next question</button></div>`;
+  h+=`<p class="ur">Mastery: 8+ answers with 80% accuracy in a level gives a star. / هر level ۾ 8 جواب ۽ 80% صحيح ٿيڻ تي ستارو ملندو.</p>`;
+  return h;
+}
+function rans(i){if(rpick!==null)return;rpick=i;render()}
+function rnext(){const m=S.mist.shift();if(rpick!=m.q.a)S.mist.push(m);rpick=null;save();render()}
+function vRev(){
+  let h='';
+  if(S.mist.length){const m=S.mist[0];
+    h+=`<div class="card"><h2>Revise mistakes (${S.mist.length} left)</h2><div class="ur">${T[m.t].n} · ${LV[m.l-1]}</div></div>`+qcard(m.q,rpick,'rans');
+    if(rpick!==null)h+=`<div class="card"><b class="${rpick==m.q.a?'ok':'bad'}">${rpick==m.q.a?'Correct. Removed from your list.':'Incorrect. It stays in your list.'}</b><p>${m.q.e}</p><button onclick="rnext()">Next</button></div>`;
+  }else h+=`<div class="card"><h2>Revision list</h2><p>No mistakes saved. Wrong answers from Practice appear here.</p></div>`;
+  if(S.wrong.length)h+=`<div class="card"><h2>Diagnostic mistakes</h2>`+S.wrong.map(i=>`<div class="s"><span>${MATH[i].q}</span><span class="tag">${MATH[i].a[0]}</span></div>`).join("")+`</div>`;
+  return h;
+}
 function render(){
 let h=`<h1><img src="logo.jpg" alt="" onerror="this.style.display='none'" style="width:36px;height:36px;border-radius:8px;vertical-align:middle;margin-right:10px">Zuch</h1><p class="sub">Multi-Purpose Robotics Engineer · روبوٽڪس انجنيئرنگ</p>`+nav();
 if(tab==="home"){
-const r=rankIdx();
+const r=rankIdx(),n=Object.keys(T).filter(tm).length;
 h+=`<div class="card rank"><div class="ur">Current rank / موجوده درجو</div><b>${RANKS[r]}</b><div class="sub" style="margin:4px 0 0">Next: ${RANKS[Math.min(r+1,13)]}. Ranks are earned by passing assessments.</div></div>
 <div class="card"><h2>Progress</h2><div class="bar"><i style="width:${pct()}%"></i></div><span class="sub">${Object.keys(S.done).length} of ${SERIES.length} series passed (${pct()}%)</span>
-<div class="stats" style="margin-top:12px"><div><b>${acc()}%</b><span>Accuracy</span></div><div><b>${S.asked}</b><span>Questions</span></div><div><b>${S.days.length}</b><span>Study days</span></div></div></div>
-<div class="card"><h2>Next step</h2><p>${S.done[0]?"Open the Series tab and continue with Series 02: Advanced Physics.":"Take the Mathematics diagnostic. It decides where your learning sequence starts."}</p><button onclick="go('exam')">${S.done[0]?"Retake diagnostic":"Start diagnostic"}</button></div>`;
+<div class="stats" style="margin-top:12px"><div><b>${acc()}%</b><span>Accuracy</span></div><div><b>${S.asked}</b><span>Questions</span></div><div><b>${S.xp}</b><span>XP</span></div></div>
+<p class="sub" style="margin:12px 0 0">Topics mastered: ${n} of ${Object.keys(T).length} · Study days: ${S.days.length}</p></div>
+<div class="card"><h2>Next step</h2><p>${S.done[0]?"Keep practising topics until each level earns a star.":"Take the Mathematics diagnostic, then practise each topic."}</p><button onclick="go('prac')">Continue practice</button> <button class="ghost" onclick="go('exam')">Diagnostic</button></div>`;
 }
+if(tab==="prac")h+=vPractice();
 if(tab==="lib"){
-h+=`<div class="card"><h2>All 23 series</h2>`+SERIES.map((n,i)=>`<div class="s"><span>${String(i+1).padStart(2,"0")}  ${n}</span><span class="tag ${S.done[i]?"ok":""}">${S.done[i]?"Passed":i===0?"Diagnostic open":"Locked by prerequisites"}</span></div>`).join("")+`</div><p class="ur">A series counts as complete only after its assessment is passed (80%+). / سيريز تڏهن مڪمل ٿيندي جڏهن امتحان پاس ٿئي.</p>`;
+h+=`<div class="card"><h2>All 23 series</h2>`+SERIES.map((n,i)=>`<div class="s"><span>${String(i+1).padStart(2,"0")}  ${n}</span><span class="tag ${S.done[i]?"ok":""}">${S.done[i]?"Passed":i===0?"Practice open":"Locked by prerequisites"}</span></div>`).join("")+`</div><p class="ur">A series counts as complete only after its assessment is passed (80%+). / سيريز تڏهن مڪمل ٿيندي جڏهن امتحان پاس ٿئي.</p>`;
 }
 if(tab==="exam"){
-if(!quiz){h+=`<div class="card"><h2>Mathematics diagnostic</h2><p>5 questions. Answers appear only after you submit. Write "don't know" if unsure.</p><button onclick="startQ()">Begin</button></div>`}
+if(!quiz){h+=`<div class="card"><h2>Mathematics diagnostic</h2><p>5 questions. Answers appear only after you submit. Write "don't know" if unsure.</p><button onclick="startQ()">Begin</button></div>`;
+  h+=`<div class="card"><h2>Topic mastery</h2>`+Object.keys(T).map(k=>`<div><b>${T[k].n}</b>${tm(k)?' 🏆':''}`+[1,2,3].map(l=>`<div class="row"><span class="n">${LV[l-1]}</span><div class="bar"><i style="width:${accT(k,l)*100}%"></i></div><span>${Math.round(accT(k,l)*100)}%${mast(k,l)?' ⭐':''}</span></div>`).join('')+`</div>`).join('')+`</div>`}
 else if(quiz.res){
 const sc=quiz.res.filter(x=>x.ok).length;
 h+=`<div class="card"><h2>Score: ${sc} / ${MATH.length}</h2><p>${sc>=4?"Foundation verified. Series 01 marked as passed for now; deeper topics will still be tested.":"Review the corrections below. Foundations come first."}</p></div>`+quiz.res.map((x,i)=>`<div class="card"><b class="${x.ok?"ok":"bad"}">${x.ok?"Correct":"Incorrect"}</b> — ${MATH[i].q}<br>Your answer: ${x.v||"(blank)"}<br><span class="ur">${MATH[i].e}</span></div>`).join("")+`<button onclick="startQ()">Try again</button>`;
 }else{
 h+=`<div class="card"><h2>Mathematics diagnostic</h2>`+MATH.map((m,i)=>`<div class="q"><label for="q${i}">${i+1}. ${m.q}</label><input type="text" id="q${i}" autocomplete="off"></div>`).join("")+`<button onclick="submitQ()">Submit answers</button></div>`;
 }}
-if(tab==="rev"){
-h+=`<div class="card"><h2>Revision list</h2>`+(S.wrong.length?S.wrong.map(i=>`<div class="s"><span>${MATH[i].q}</span><span class="tag">${MATH[i].a[0]}</span></div>`).join("")+`<p class="ur">Tracked from your mistakes. Retake the diagnostic to clear them.</p>`:`<p>No mistakes tracked yet.</p>`)+`</div>`;
-}
+if(tab==="rev")h+=vRev();
 h+=`<button class="ghost" onclick="resetAll()">Reset progress</button>`;
 $(h);
 }
@@ -103,7 +211,7 @@ S.wrong=res.map((x,i)=>x.ok?null:i).filter(x=>x!==null);
 if(sc>=4)S.done[0]=today();else delete S.done[0];
 save();quiz={res};render();window.scrollTo(0,0);
 }
-function resetAll(){if(confirm("Delete all saved progress?")){S={done:{},asked:0,right:0,xp:0,days:[today()],wrong:[]};save();go("home")}}
+function resetAll(){if(confirm("Delete all saved progress?")){S={done:{},asked:0,right:0,xp:0,days:[today()],wrong:[],st:{},mist:[]};save();cur=null;go("home")}}
 render();
 </script>
 </body>
