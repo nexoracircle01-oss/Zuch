@@ -3,319 +3,212 @@
 <head>
 <meta charset="utf-8">
 <title>Zuch</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-:root{--bg:#EEF2F7;--ink:#0F1D33;--mute:#5B6B82;--line:#C9D3E0;--card:#FFFFFF;--blue:#1B4B8F;--btnt:#FFFFFF;--amber:#B97A10;--ok:#1F7A4D;--bad:#B3261E;--okbg:#1F7A4D22;--badbg:#B3261E22;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root{--bg:#0B1424;--ink:#E6EDF7;--mute:#92A1B8;--line:#24344F;--card:#12203A;--blue:#6FA3F0;--btnt:#0B1424;--amber:#E3A64A;--ok:#52C38B;--bad:#FF8A80;color-scheme:dark}}
+:root{--bg:#EEF2F7;--ink:#0F1D33;--mute:#5B6B82;--card:#fff;--line:#D5DDE8;--blue:#1D4E8F;--ok:#1B8A4B;--bad:#C0392B;--amber:#E0A100}
+@media (prefers-color-scheme:dark){:root{--bg:#0D1524;--ink:#E8EEF7;--mute:#97A6BC;--card:#16213A;--line:#2A3957;--blue:#3B78C8}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI","Noto Naskh Arabic",system-ui,sans-serif;
-background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:28px 28px;background-attachment:fixed}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:28px 28px;padding-top:env(safe-area-inset-top)}
 main{max-width:720px;margin:0 auto;padding:16px}
-h1{font:700 26px/1.2 Georgia,"Times New Roman",serif;margin:8px 0 2px}
-h2{font:700 18px/1.3 Georgia,serif;margin:0 0 8px}
-.sub{color:var(--mute);margin:0 0 14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px;margin:0 0 12px}
-.rank{border-left:4px solid var(--amber)}
-.rank b{font-size:20px}
-.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:8px 0 4px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:48px;height:48px;border-radius:12px;background:#000;color:#fff;display:grid;place-items:center;font:700 26px Georgia,serif}
+h1{font:700 30px/1.2 Georgia,"Times New Roman",serif;margin:0}
+h2{font:700 18px/1.3 Georgia,serif;margin:0 0 10px}
+.sub{color:var(--mute);margin:6px 0 14px;font-size:14px}
+.tabs,.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:none}
+.tabs button{background:var(--blue);color:#fff;border:0;border-radius:10px;padding:12px 16px;font-size:15px;white-space:nowrap}
+.tabs button.on{background:var(--ink);color:var(--bg)}
+.chips button{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:10px 16px;font-size:15px;white-space:nowrap}
+.chips button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0}
+.q{font-size:20px;font-weight:600;margin-bottom:12px}
+.opt{display:block;width:100%;text-align:left;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:10px;padding:14px;margin:8px 0;font-size:17px}
+.opt.ok{border-color:var(--ok);background:rgba(27,138,75,.15)}
+.opt.bad{border-color:var(--bad);background:rgba(192,57,43,.15)}
+.exp{margin-top:10px;padding:10px;border-left:4px solid var(--amber);font-size:15px}
+.go{background:var(--blue);color:#fff;border:0;border-radius:10px;padding:14px 20px;font-size:16px;width:100%;margin-top:10px}
+.ghost{background:transparent;color:var(--blue);border:1px solid var(--blue);border-radius:6px;padding:14px 20px;font-size:16px;margin-top:8px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+.stat b{display:block;font-size:22px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px;gap:8px}
+.row:last-child{border:0}
+.st{letter-spacing:2px;white-space:nowrap}
+.small{font-size:13px;color:var(--mute)}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px 0}
 .bar i{display:block;height:100%;background:var(--blue)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
-.stats b{display:block;font-size:22px}
-.stats span{color:var(--mute);font-size:13px}
-nav,.chips{display:flex;gap:6px;overflow-x:auto;margin:0 0 12px}
-button{font:inherit;cursor:pointer;border:1px solid var(--blue);background:var(--blue);color:var(--btnt);border-radius:4px;padding:10px 14px;min-height:44px}
-button.ghost{background:transparent;color:var(--blue)}
-nav button{flex:1;white-space:nowrap;padding:10px 8px}
-nav button.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
-button.chip{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:99px;white-space:nowrap;min-height:40px;padding:8px 14px}
-button.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-button.o{display:block;width:100%;text-align:left;margin:8px 0;background:var(--card);color:var(--ink);border:2px solid var(--line);padding:12px}
-button.o.ok{border-color:var(--ok);background:var(--okbg)}
-button.o.no{border-color:var(--bad);background:var(--badbg)}
-button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
-summary{cursor:pointer;min-height:32px}
-.qt{font-size:19px;font-weight:600;margin-bottom:8px;line-height:1.4}
-.s{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)}
-.s:last-child{border:0}
-.tag{font-size:13px;color:var(--mute);white-space:nowrap}
-.tag.ok{color:var(--ok);font-weight:600}
-.q{margin:0 0 14px}
-.q label{display:block;margin-bottom:4px}
-input[type=text]{width:100%;padding:10px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);font:inherit}
-.ok{color:var(--ok)}.bad{color:var(--bad)}
-.ur{color:var(--mute);font-size:14px}
-.row{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:14px}
-.row .n{width:80px;color:var(--mute)}
-.row .bar{flex:1;margin:0}
 </style>
 </head>
 <body>
-<main id="app"></main>
+<main>
+<div class="brand"><div class="logo">Z</div><h1>Zuch</h1></div>
+<div class="sub">Multi-Purpose Robotics Engineer · روبوٽڪس انجنيئرنگ</div>
+<div id="app"></div>
+</main>
 <script>
-const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,P=a=>a[R(0,a.length-1)];
-const gcd=(a,b)=>b?gcd(b,a%b):Math.abs(a);
-const F=(n,d)=>{const g=gcd(n,d)||1;n/=g;d/=g;return d==1?''+n:n+'/'+d};
+const r=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const pick=a=>a[r(0,a.length-1)];
 const sh=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
-const SUPD='⁰¹²³⁴⁵⁶⁷⁸⁹';
-const sup=n=>String(n).split('').map(d=>SUPD[d]).join('');
-const ter=(c,n)=>n==0?''+c:n==1?(c==1?'x':c+'x'):(c==1?'':c)+'x'+sup(n);
-function mc(q,ans,wr,e){
-  ans=''+ans;let w=[...new Set(wr.map(String))].filter(x=>x!==ans);
-  if(/^-?\d+$/.test(ans)){let n=+ans,k=1;while(w.length<3){const c=''+(n+(k%2?k:-k));k++;if(c!==ans&&!w.includes(c))w.push(c)}}
-  else{for(const x of['None of these','Cannot be determined','All of these'])if(w.length<3)w.push(x)}
-  const o=sh([ans,...w.slice(0,3)]);return{q:q,o:o,a:o.indexOf(ans),e:e};
-}
-const SIN={0:'0',30:'1/2',45:'√2/2',60:'√3/2',90:'1'},COS={0:'1',30:'√3/2',45:'√2/2',60:'1/2',90:'0'};
-const B=n=>n.toString(2);
-const C=a=>[1,0,-1,0][(a/90)%4],Sn=a=>[0,1,0,-1][(a/90)%4];
-const GT={AND:(a,b)=>a&b,OR:(a,b)=>a|b,XOR:(a,b)=>a^b,NAND:(a,b)=>1-(a&b),NOR:(a,b)=>1-(a|b)};
-const PQ=[
-["Which PID term reacts to the present error?","P (proportional)",["I (integral)","D (derivative)","None of these"],"P output = Kp × current error."],
-["Which term removes steady-state error?","I (integral)",["P (proportional)","D (derivative)","None of these"],"The integral term accumulates past error until it becomes zero."],
-["Which term predicts future error and reduces overshoot?","D (derivative)",["P (proportional)","I (integral)","None of these"],"D reacts to the rate of change of error."],
-["A very large Kp usually causes?","Oscillation and overshoot",["Slower response","No effect","Zero error always"],"High gain makes the system overreact and can become unstable."]];
-const T={
-le:{n:'Linear Equations',
-en:'A linear equation has x with power 1. Goal: get x alone. Whatever you do to one side, do the same to the other side.',
-sd:'Linear equation ۾ x جي power 1 هوندي آهي. مقصد x کي اڪيلو ڪرڻ آهي. هڪ پاسي جيڪو ڪريو، ٻئي پاسي به اهو ئي ڪريو.',
-f:'ax + b = c  →  x = (c − b) / a',
-g:[
-()=>{const x=R(2,20),a=R(2,15);return mc(`x + ${a} = ${x+a}. Find x.`,x,[x+a,x-1,x+1],`Subtract ${a} from both sides: x = ${x+a} − ${a} = ${x}.`)},
-()=>{const x=R(2,12),a=R(2,9),b=R(1,15);return mc(`${a}x + ${b} = ${a*x+b}. Find x.`,x,[x+1,x-1,a*x],`${a}x = ${a*x+b} − ${b} = ${a*x}, so x = ${x}.`)},
-()=>{const x=R(2,9),a=R(3,9),c=R(1,a-1),b=R(1,20),d=b+(a-c)*x;return mc(`${a}x + ${b} = ${c}x + ${d}. Find x.`,x,[x+1,x-1,x+2],`Collect x terms: (${a}−${c})x = ${d}−${b}, so x = ${x}.`)}]},
-tr:{n:'Trigonometry',
-en:'In a right triangle: sin = opposite / hypotenuse, cos = adjacent / hypotenuse, tan = opposite / adjacent. Learn the values for 0°, 30°, 45°, 60°, 90°.',
-sd:'Right triangle ۾: sin = سامهون وارو پاسو ÷ hypotenuse، cos = ڀرسان وارو پاسو ÷ hypotenuse، tan = سامهون ÷ ڀرسان. 0°، 30°، 45°، 60°، 90° جون قيمتون ياد ڪريو.',
-f:'sin²θ + cos²θ = 1',
-g:[
-()=>{const A=P([0,30,45,60,90]),f=P(['sin','cos']),tab=f=='sin'?SIN:COS;return mc(`${f} ${A}° = ?`,tab[A],Object.values(tab),`Standard value: ${f} ${A}° = ${tab[A]}.`)},
-()=>{const t=P([[3,4,5],[5,12,13],[8,15,17],[7,24,25]]),a=t[0],b=t[1],c=t[2];return mc(`sin θ = ${a}/${c} and θ is acute. Find cos θ.`,`${b}/${c}`,[`${a}/${b}`,`${c}/${b}`,`${b}/${a}`],`The triangle has sides ${a}, ${b}, ${c}. cos θ = adjacent / hypotenuse = ${b}/${c}.`)},
-()=>{const k=R(2,9),A=P([30,60]),ans=A==30?''+k:k+'√3';return mc(`Right triangle: hypotenuse = ${2*k}, one angle = ${A}°. Length of the side opposite that angle?`,ans,[2*k,k+'√2',A==30?k+'√3':''+k,3*k],`opposite = hypotenuse × sin ${A}° = ${2*k} × ${A==30?'1/2':'√3/2'} = ${ans}.`)}]},
-de:{n:'Derivatives',
-en:'A derivative tells how fast something changes. Power rule: bring the power down as a multiplier, then reduce the power by 1.',
-sd:'Derivative ٻڌائي ٿي ته ڪا شيءِ ڪيتري تيزيءَ سان بدلجي ٿي. Power rule: power کي اڳيان ضرب ڪريو ۽ power مان 1 گھٽايو.',
-f:'d/dx (xⁿ) = n·xⁿ⁻¹',
-g:[
-()=>{const n=R(2,6);return mc(`d/dx of x${sup(n)} = ?`,ter(n,n-1),[ter(1,n-1),ter(n,n),ter(n-1,n-1),ter(n+1,n)],`Bring ${n} down and reduce the power by 1: ${ter(n,n-1)}.`)},
-()=>{const a=R(2,6),n=R(2,5);return mc(`d/dx of ${ter(a,n)} = ?`,ter(a*n,n-1),[ter(a,n-1),ter(a*n,n),ter(a*(n-1),n-1),ter(a*n+1,n-1)],`Multiply coefficient by power: ${a}×${n} = ${a*n}. New power = ${n-1}.`)},
-()=>{const a=R(2,5),b=R(2,9),k=R(1,6),v=2*a*k+b;return mc(`f(x) = ${a}x² + ${b}x. Find f′(${k}).`,v,[a*k*k+b*k,2*a*k,a*k+b,v+a],`f′(x) = ${2*a}x + ${b}. At x = ${k}: ${2*a}×${k} + ${b} = ${v}.`)}]},
-ma:{n:'Matrices',
-en:'A matrix is a grid of numbers. Determinant of a 2×2 matrix is ad − bc. To multiply, take a row of the first matrix with a column of the second.',
-sd:'Matrix انگن جو جدول آهي. 2×2 matrix جو determinant ad − bc آهي. ضرب لاءِ پهرين matrix جي row کي ٻي matrix جي column سان ضرب ڏيو.',
-f:'det [[a, b], [c, d]] = ad − bc',
-g:[
-()=>{const a=R(1,6),b=R(1,6),c=R(1,6),d=R(1,6);return mc(`Determinant of [[${a}, ${b}], [${c}, ${d}]] = ?`,a*d-b*c,[a*d+b*c,a*c-b*d,b*c-a*d],`det = ad − bc = ${a}×${d} − ${b}×${c} = ${a*d-b*c}.`)},
-()=>{const a=R(1,5),b=R(1,5),e=R(1,5),g=R(1,5);return mc(`A has first row [${a}, ${b}]. B has first column [${e}, ${g}]. Top-left element of A×B = ?`,a*e+b*g,[a*e,a*g+b*e,a+e+b+g],`Row 1 of A × column 1 of B: ${a}×${e} + ${b}×${g} = ${a*e+b*g}.`)},
-()=>{const x=R(2,9),D=4*x-6;return mc(`The matrix [[x, 2], [3, 4]] has determinant ${D}. Find x.`,x,[x+1,x-1,D],`det = 4x − 6 = ${D}, so 4x = ${D+6} and x = ${x}.`)}]},
-in:{n:'Integration',
-en:'Integration is the reverse of differentiation. Add 1 to the power, divide by the new power, and always write + C.',
-sd:'Integration، differentiation جو اُلٽو آهي. power ۾ 1 گڏيو، نئين power سان ورهايو، ۽ آخر ۾ هميشه + C لکو.',
-f:'∫ xⁿ dx = xⁿ⁺¹ / (n+1) + C',
-g:[
-()=>{const n=R(1,5);return mc(`∫ ${ter(1,n)} dx = ?`,`x${sup(n+1)}/${n+1} + C`,[`x${sup(n)}/${n} + C`,`${n+1}x${sup(n)} + C`,`x${sup(n+2)}/${n+2} + C`,`x${sup(n+1)} + C`],`Add 1 to the power (${n+1}) and divide by ${n+1}.`)},
-()=>{const n=R(1,4),k=R(1,4),a=(n+1)*k;return mc(`∫ ${ter(a,n)} dx = ?`,ter(k,n+1)+' + C',[ter(k,n)+' + C',ter(a,n+1)+' + C',ter(k+1,n+1)+' + C'],`${ter(a,n)} → ${a}·x${sup(n+1)}/${n+1} = ${ter(k,n+1)}, then add C.`)},
-()=>{const b=R(2,4),m=R(1,4);return mc(`Evaluate ∫ from 0 to ${b} of ${3*m}x² dx.`,m*b**3,[m*b*b,3*m*b**3,m*b**3+m,b**3],`∫ ${3*m}x² dx = ${m}x³. At ${b}: ${m}×${b**3} = ${m*b**3}. The lower limit 0 gives 0.`)}]},
-pr:{n:'Probability',
-en:'Probability = favourable outcomes ÷ total outcomes. Mean = sum of values ÷ number of values.',
-sd:'Probability = ڪامياب نتيجا ÷ ڪُل نتيجا. Mean = سڀني قيمتن جو جوڙ ÷ قيمتن جو تعداد.',
-f:'P(E) = n(E) / n(S)',
-g:[
-()=>{const k=R(1,4),l=[];for(let i=k+1;i<=6;i++)l.push(i);return mc(`A fair die is rolled. P(number > ${k}) = ?`,F(6-k,6),[F(k,6),F(7-k,6),F(1,6),F(6-k,5),F(3,6)],`Favourable: ${l.join(', ')} → ${6-k} out of 6.`)},
-()=>{const m=R(15,30),d=[R(-3,3),R(-4,4),R(-2,2),R(-5,5)];d.push(-d.reduce((x,y)=>x+y,0));const v=d.map(x=>m+x);return mc(`Mean of ${v.join(', ')} = ?`,m,[m+1,m-1,m+2],`Sum = ${v.reduce((x,y)=>x+y,0)}. Divide by 5 → ${m}.`)},
-()=>{const s=R(2,12),w=6-Math.abs(s-7);return mc(`Two fair dice are rolled. P(sum = ${s}) = ?`,F(w,36),[F(w+1,36),F(w,6),F(w,12),F(1,36)],`${w} of the 36 equally likely pairs give sum ${s}.`)}]},
-qe:{n:"Quadratic Equations",
-en:"For ax² + bx + c = 0, discriminant D = b² − 4ac. Sum of roots = −b/a and product of roots = c/a.",
-sd:"ax² + bx + c = 0 لاءِ discriminant D = b² − 4ac. Roots جو جوڙ = −b/a ۽ roots جو ضرب = c/a.",
-f:"D = b² − 4ac;  x = (−b ± √D) / 2a",
-g:[
-()=>{const a=R(1,6),b=R(1,6),r=[a,b].sort((x,y)=>x-y);return mc(`Solve x² − ${a+b}x + ${a*b} = 0.`,`x = ${r[0]} or x = ${r[1]}`,[`x = ${-r[0]} or x = ${-r[1]}`,`x = ${r[0]} or x = ${-r[1]}`,`x = ${r[0]+1} or x = ${r[1]+1}`,`x = ${a+b} or x = ${a*b}`],`Find two numbers with sum ${a+b} and product ${a*b}: ${a} and ${b}.`)},
-()=>{const a=R(1,4),b=R(-6,6),c=R(-5,5),D=b*b-4*a*c;return mc(`Discriminant of ${a}x² ${b<0?"−":"+"} ${Math.abs(b)}x ${c<0?"−":"+"} ${Math.abs(c)} = 0?`,D,[b*b+4*a*c,b*b-2*a*c,-D,D+a],`D = b² − 4ac = ${b*b} − 4×${a}×(${c}) = ${D}.`)},
-()=>{const r1=R(1,6),r2=R(1,6),a=R(1,3),c=a*r1*r2,k=R(0,1),eq=`${a==1?"":a}x² − ${a*(r1+r2)}x + ${c} = 0`,ans=k?r1*r2:r1+r2;return mc(`For ${eq}, find the ${k?"product":"sum"} of the roots.`,ans,[k?r1+r2:r1*r2,-ans,ans+a,a*(r1+r2)],k?`Product = c/a = ${c}/${a} = ${r1*r2}.`:`Sum = −b/a = ${a*(r1+r2)}/${a} = ${r1+r2}.`)}]},
-ki:{n:"Physics: Kinematics",
-en:"Kinematics studies motion without asking what causes it. u = starting speed, v = final speed, a = acceleration, t = time, s = distance.",
-sd:"Kinematics ۾ حرڪت جو مطالعو ٿئي ٿو (سبب کان سواءِ). u شروعاتي رفتار، v آخري رفتار، a تيزي (acceleration)، t وقت ۽ s فاصلو آهي.",
-f:"v = u + at;  s = ut + ½at²;  v² = u² + 2as",
-g:[
-()=>{const u=R(0,10),a=R(1,5),t=R(2,8),v=u+a*t;return mc(`A car starts at u = ${u} m/s and accelerates at a = ${a} m/s² for t = ${t} s. Find v (m/s).`,v,[u+a,a*t,v+a,v-u+1],`v = u + at = ${u} + ${a}×${t} = ${v}.`)},
-()=>{const u=R(0,10),a=2*R(1,4),t=R(2,6),s=u*t+a*t*t/2;return mc(`u = ${u} m/s, a = ${a} m/s², t = ${t} s. Find distance s (m).`,s,[u*t+a*t*t,u*t+a*t,(u+a*t)*t],`s = ut + ½at² = ${u*t} + ½×${a}×${t*t} = ${s}.`)},
-()=>{const u=R(0,6),a=R(1,4),s=R(5,30),v2=u*u+2*a*s;return mc(`u = ${u} m/s, a = ${a} m/s², s = ${s} m. Find v² (m²/s²).`,v2,[u*u+a*s,2*a*s,v2+u,(u+a*s)**2],`v² = u² + 2as = ${u*u} + 2×${a}×${s} = ${v2}.`)}]},
-nl:{n:"Physics: Newton's Laws",
-en:"Newton's second law: F = ma. Force is measured in Newtons (N). Here g = 10 m/s².",
-sd:"Newton جو ٻيو قانون: F = ma. قوت (force) جو يونٽ Newton (N) آهي. هتي g = 10 m/s² ورتو ويو آهي.",
-f:"F = ma;  W = mg;  a = (F − friction) / m",
-g:[
-()=>{const m=R(2,20),a=R(2,10);return mc(`A ${m} kg object accelerates at ${a} m/s². Net force (N)?`,m*a,[m+a,m*a+m,m*a-a],`F = ma = ${m} × ${a} = ${m*a} N.`)},
-()=>{const m=R(2,50);return mc(`Weight of a ${m} kg mass (g = 10 m/s²)?`,m*10+" N",[m+" N",m*100+" N",m*11+" N"],`W = mg = ${m} × 10 = ${m*10} N.`)},
-()=>{const m=R(2,8),a=R(1,6),f=R(2,15),Fo=m*a+f;return mc(`A ${m} kg box is pushed with ${Fo} N. Friction is ${f} N. Find acceleration (m/s²).`,a,[a+1,a+2,Math.round(Fo/m)],`Net force = ${Fo} − ${f} = ${m*a} N. a = F/m = ${a}.`)}]},
-we:{n:"Physics: Work, Energy, Power",
-en:"Work = force × distance (in the direction of force). Energy is measured in Joules (J). Power = work ÷ time, measured in Watts (W).",
-sd:"ڪم (work) = قوت × فاصلو. Energy جو يونٽ Joule (J) ۽ Power = ڪم ÷ وقت، جنهن جو يونٽ Watt (W) آهي.",
-f:"W = F·d;  KE = ½mv²;  P = W / t",
-g:[
-()=>{const Fo=R(2,20),d=R(2,15);return mc(`A force of ${Fo} N moves an object ${d} m in its direction. Work done (J)?`,Fo*d,[Fo+d,Fo*d+Fo,Fo*d-d],`W = F×d = ${Fo}×${d} = ${Fo*d} J.`)},
-()=>{const m=2*R(1,10),v=R(2,10),k=m*v*v/2;return mc(`Kinetic energy of a ${m} kg body moving at ${v} m/s (J)?`,k,[m*v*v,m*v,m*v/2,k+m],`KE = ½mv² = ½×${m}×${v*v} = ${k} J.`)},
-()=>{const Fo=R(2,20),t=R(2,5),d=t*R(2,8),Pw=Fo*d/t;return mc(`A machine applies ${Fo} N over ${d} m in ${t} s. Power (W)?`,Pw,[Fo*d,Fo*d*t,Pw+Fo],`Work = ${Fo}×${d} = ${Fo*d} J. P = W/t = ${Fo*d}/${t} = ${Pw} W.`)}]},
-oh:{n:"Electrical: Ohm's Law",
-en:"Ohm's law links voltage (V), current (I) and resistance (R). Power in a resistor: P = I²R.",
-sd:"Ohm جو قانون: V = IR. Voltage volt ۾، current ampere ۾ ۽ resistance ohm (Ω) ۾ ماپجي ٿي.",
-f:"V = I·R;  P = V·I = I²R",
-g:[
-()=>{const I=R(1,9),Rr=R(2,20);return mc(`I = ${I} A, R = ${Rr} Ω. Find V (volts).`,I*Rr,[I+Rr,Rr-I+1,I*Rr+I],`V = IR = ${I}×${Rr} = ${I*Rr} V.`)},
-()=>{const I=R(1,5),Rr=R(2,20),V=I*Rr;return mc(`V = ${V} V across a resistor, I = ${I} A. Find R (Ω).`,Rr,[V*I,Rr+1,Rr+2],`R = V/I = ${V}/${I} = ${Rr} Ω.`)},
-()=>{const I=R(2,6),Rr=R(2,15);return mc(`${I} A flows through a ${Rr} Ω resistor. Power dissipated (W)?`,I*I*Rr,[I*Rr,I*Rr*Rr,2*I*Rr],`P = I²R = ${I*I}×${Rr} = ${I*I*Rr} W.`)}]},
-rc:{n:"Electrical: Series & Parallel",
-en:"Series: add resistances. Parallel: total resistance is smaller than the smallest branch. For two resistors in parallel: R = R1×R2 / (R1+R2).",
-sd:"Series ۾ resistances گڏجن ٿيون. Parallel ۾ ڪُل resistance سڀ کان ننڍي resistor کان به گھٽ ٿئي ٿي.",
-f:"Series: R = R1+R2+…;  Parallel (2): R = R1R2 / (R1+R2)",
-g:[
-()=>{const a=R(1,9)*10,b=R(1,9)*10,c=R(1,9)*10;return mc(`Resistors ${a} Ω, ${b} Ω and ${c} Ω are in series. Total R (Ω)?`,a+b+c,[a*b*c,a+b,Math.round(a*b/(a+b))],`Series: R = ${a}+${b}+${c} = ${a+b+c} Ω.`)},
-()=>{const p=P([[6,3,2],[12,4,3],[6,6,3],[10,10,5],[20,5,4],[12,6,4],[30,20,12]]);return mc(`${p[0]} Ω and ${p[1]} Ω are in parallel. Total R (Ω)?`,p[2],[p[0]+p[1],p[0]*p[1],p[2]+1,(p[0]+p[1])/2],`R = (R1×R2)/(R1+R2) = ${p[0]*p[1]}/${p[0]+p[1]} = ${p[2]} Ω.`)},
-()=>{const p=P([[6,3,2],[12,4,3],[10,10,5],[20,5,4]]),r=R(2,10)*2;return mc(`${r} Ω is in series with a parallel pair of ${p[0]} Ω and ${p[1]} Ω. Total R (Ω)?`,r+p[2],[r+p[0]+p[1],r+p[0]*p[1],r+p[2]+1,r+p[2]*2],`Parallel part = ${p[2]} Ω. Add the series resistor: ${r}+${p[2]} = ${r+p[2]} Ω.`)}]},
-nb:{n:"Electronics: Binary Numbers",
-en:"Computers use only 0 and 1. In binary, each place is a power of 2: 1, 2, 4, 8, 16, 32...",
-sd:"Computer فقط 0 ۽ 1 سمجھي ٿو. Binary ۾ هر جاءِ 2 جي power هوندي آهي: 1، 2، 4، 8، 16، 32...",
-f:"1011₂ = 8 + 0 + 2 + 1 = 11",
-g:[
-()=>{const n=R(5,31);return mc(`Convert binary ${B(n)} to decimal.`,n,[n+1,n-1,n+2],`Add the place values of the 1 bits (16, 8, 4, 2, 1) = ${n}.`)},
-()=>{const n=R(10,60);return mc(`Convert decimal ${n} to binary.`,B(n),[B(n+1),B(n-1),B(n+2),B(n+3)],`Divide by 2 repeatedly and read the remainders upward: ${n} = ${B(n)}.`)},
-()=>{const a=R(5,15),b=R(5,15),s=a+b;return mc(`Add binary ${B(a)} + ${B(b)}. Result in binary?`,B(s),[B(s+1),B(s-1),B(s+2),B(s-2),B(a^b),B(a|b)],`${a} + ${b} = ${s} = ${B(s)} in binary.`)}]},
-lg:{n:"Electronics: Logic Gates",
-en:"AND: output 1 only if both inputs are 1. OR: 1 if any input is 1. XOR: 1 if inputs differ. NAND and NOR are the opposites of AND and OR.",
-sd:"AND: ٻئي input 1 هجن ته output 1. OR: ڪو به هڪ input 1 هجي ته 1. XOR: input مختلف هجن ته 1. NAND ۽ NOR، AND ۽ OR جا اُلٽا آهن.",
-f:"NAND = NOT(AND);  NOR = NOT(OR)",
-g:[
-()=>{const g=P(Object.keys(GT)),a=R(0,1),b=R(0,1),y=GT[g](a,b);return mc(`${g} gate with A = ${a}, B = ${b}. Output Y = ?`,`Y = ${y}`,[`Y = ${1-y}`,"Y = 2","Not defined"],`${g}(${a}, ${b}) = ${y}.`)},
-()=>{const g=P(Object.keys(GT)),n=[[0,0],[0,1],[1,0],[1,1]].filter(x=>GT[g](x[0],x[1])).length;return mc(`How many of the 4 input combinations of a 2-input ${g} gate give output 1?`,n,[0,1,2,3,4],`Check the truth table of ${g}: output is 1 for ${n} of 4 combinations.`)},
-()=>{const a=R(0,1),b=R(0,1),c=R(0,1),k=R(0,2);let y,t;if(k==0){y=(a&b)|c;t="(A AND B) OR C"}else if(k==1){y=(a^b)&c;t="(A XOR B) AND C"}else{y=1-((a|b)&c);t="NOT((A OR B) AND C)"}return mc(`Y = ${t} with A = ${a}, B = ${b}, C = ${c}. Y = ?`,`Y = ${y}`,[`Y = ${1-y}`,"Y = 2","Not defined"],`Solve the inner bracket first, then the outer gate. Y = ${y}.`)}]},
-gr:{n:"Robotics: Gears",
-en:"Gear ratio = driven teeth ÷ driver teeth. A bigger ratio gives lower speed but more torque. Real gearboxes lose some energy (efficiency).",
-sd:"Gear ratio = driven teeth ÷ driver teeth. ratio وڌيڪ هجي ته رفتار گھٽ ۽ torque وڌيڪ ٿئي ٿو. حقيقي gearbox ۾ ڪجھ energy ضايع ٿئي ٿي.",
-f:"ratio = Nd / Nr;  ω_out = ω_in / ratio;  T_out = T_in × ratio × efficiency",
-g:[
-()=>{const d=R(10,25),n=d*R(2,5);return mc(`Driver gear has ${d} teeth and driven gear has ${n} teeth. Gear ratio?`,n/d,[n-d,n+d,n/d+1],`Ratio = driven ÷ driver = ${n}/${d} = ${n/d}.`)},
-()=>{const r=R(2,5),k=R(100,600);return mc(`Input speed is ${r*k} rpm and gear ratio is ${r}:1. Output speed (rpm)?`,k,[r*k*r,r*k-r,k+r],`Output speed = input ÷ ratio = ${r*k}/${r} = ${k} rpm.`)},
-()=>{const r=R(2,5),Tq=5*R(1,4),o=Tq*r*4/5;return mc(`A motor gives ${Tq} N·m through a ${r}:1 gearbox with 80% efficiency. Output torque (N·m)?`,o,[Tq*r,Tq+r,Tq*r*2],`Ideal torque = ${Tq}×${r} = ${Tq*r}. With 80% efficiency: ${Tq*r}×0.8 = ${o} N·m.`)}]},
-fk:{n:"Robotics: Forward Kinematics",
-en:"Forward kinematics finds the end-point (x, y) of a robot arm from its joint angles. For a link of length L at angle θ: x = L cosθ, y = L sinθ. For 2 links, add the two parts.",
-sd:"Forward kinematics ۾ joint angles ڏئي robot arm جي آخري نقطي (x, y) ڳوليو ٿا. x = L cosθ، y = L sinθ. ٻن link لاءِ ٻئي حصا گڏ ڪريو.",
-f:"x = L1 cosθ1 + L2 cos(θ1+θ2);  y = L1 sinθ1 + L2 sin(θ1+θ2)",
-g:[
-()=>{const L=R(2,10),a=P([0,90,180,270]),x=L*C(a),y=L*Sn(a);return mc(`A 1-link arm of length ${L} lies at angle ${a}° from the x-axis. End point (x, y)?`,`(${x}, ${y})`,[`(${y}, ${x})`,`(${-x}, ${-y})`,`(${L}, ${L})`,`(${x+1}, ${y})`],`x = L cosθ = ${x}, y = L sinθ = ${y}.`)},
-()=>{const L1=R(2,8),L2=R(2,8),t1=P([0,90]),t2=P([90,180,270]),a2=(t1+t2)%360,x=L1*C(t1)+L2*C(a2),y=L1*Sn(t1)+L2*Sn(a2);return mc(`2-link arm: L1 = ${L1}, L2 = ${L2}. Joint 1 = ${t1}°, joint 2 = ${t2}° (relative to link 1). End point (x, y)?`,`(${x}, ${y})`,[`(${y}, ${x})`,`(${L1+L2}, 0)`,`(${x}, ${-y})`,`(${-x}, ${y})`],`Link 2 absolute angle = ${t1}+${t2} = ${t1+t2}°. x = ${x}, y = ${y}.`)},
-()=>{const L1=R(3,10),L2=R(1,L1-1),k=R(0,1);return mc(`Planar 2-link arm with L1 = ${L1} and L2 = ${L2}. ${k?"Maximum":"Minimum"} reach from the base?`,k?L1+L2:L1-L2,[L1*L2,k?L1-L2:L1+L2,L1+L2+1,L1],k?`Fully stretched: L1 + L2 = ${L1+L2}.`:`Fully folded back: |L1 − L2| = ${L1-L2}.`)}]},
-pd:{n:"Control: PID Controller",
-en:"A PID controller reduces error. P reacts to present error, I to accumulated past error, D to how fast the error is changing.",
-sd:"PID controller error گھٽائي ٿو. P موجوده error تي، I جمع ٿيل پراڻي error تي ۽ D error جي تبديليءَ جي رفتار تي ردعمل ڏئي ٿو.",
-f:"u = Kp·e + Ki·∫e dt + Kd·de/dt",
-g:[
-()=>{const x=P(PQ);return mc(x[0],x[1],x[2],x[3])},
-()=>{const Kp=R(2,9),e=R(1,10);return mc(`P controller: Kp = ${Kp}, error e = ${e}. Output u = ?`,Kp*e,[Kp+e,Kp*e+Kp,e,Kp*e*2],`u = Kp × e = ${Kp}×${e} = ${Kp*e}.`)},
-()=>{const Kp=R(1,5),e=R(1,8),Ki=R(1,4),I=R(1,6),Kd=R(1,3),d=-R(1,4),u=Kp*e+Ki*I+Kd*d;return mc(`PID: Kp = ${Kp}, Ki = ${Ki}, Kd = ${Kd}. Error e = ${e}, integral of error = ${I}, de/dt = ${d}. Output u = ?`,u,[Kp*e+Ki*I,Kp*e+Ki*I-Kd*d,Kp*e*Ki*I+Kd*d,u+Kd],`u = ${Kp*e} + ${Ki*I} + (${Kd*d}) = ${u}.`)}]},
-py:{n:"Programming: Python Basics",
-en:"Python follows operator order: ** first, then * and /, then + and -. range(n) gives 0 to n−1.",
-sd:"Python ۾ operator جي ترتيب: ** پهرين، پوءِ * ۽ /، پوءِ + ۽ -. range(n) 0 کان n−1 تائين انگ ڏئي ٿو.",
-f:"range(n) → 0, 1, …, n−1",
-g:[
-()=>{const a=R(2,9),b=R(2,9),c=R(2,5);return mc(`Python: print(${a} + ${b} * ${c}). Output?`,a+b*c,[(a+b)*c,a+b+c,a*b*c],`Multiplication comes first: ${b}*${c} = ${b*c}, then + ${a} = ${a+b*c}.`)},
-()=>{const n=R(4,10);return mc(`Python: print(sum(range(${n}))). Output?`,n*(n-1)/2,[n*(n+1)/2,n*n,n*(n-1)],`range(${n}) is 0 to ${n-1}. Sum = ${n-1}×${n}/2 = ${n*(n-1)/2}.`)},
-()=>{const n=R(3,6);let s=0;for(let i=1;i<=n;i++)s+=i*i;return mc(`Python: total = 0; for i in range(1, ${n+1}): total += i*i; print(total). Output?`,s,[s-n,s+n,n*n,n*(n+1)/2],`Add the squares from 1² to ${n}²: total = ${s}.`)}]}
+const gcd=(a,b)=>b?gcd(b,a%b):Math.abs(a);
+const sg=n=>n<0?' − '+(-n):' + '+n;
+const nz=(a,b)=>{let v=0;while(!v)v=r(a,b);return v};
+const fr=(n,d)=>{const g=gcd(n,d)||1;n/=g;d/=g;if(d<0){n=-n;d=-d}return d===1?String(n):n+'/'+d};
+const term=(c,p)=>p===0?String(c):p===1?c+'x':c+'x^'+p;
+const rd=x=>+x.toFixed(2);
+
+const G={
+"Linear Equations":[
+ ()=>{const x=r(2,20),a=r(2,20);return{q:`x + ${a} = ${x+a}. Find x.`,ans:x,e:`x = ${x+a} − ${a} = ${x}`}},
+ ()=>{const x=r(-10,12),a=r(2,9),b=r(-15,15),c=a*x+b;return{q:`${a}x${sg(b)} = ${c}. Find x.`,ans:x,e:`${a}x = ${c} − (${b}) = ${c-b}, so x = ${x}`}},
+ ()=>{const x=r(-9,12),a=r(5,12),c=r(1,a-1),b=r(-10,15),d=(a-c)*x+b;return{q:`${a}x${sg(b)} = ${c}x${sg(d)}. Find x.`,ans:x,e:`${a-c}x = ${d-b}, so x = ${x}`}}
+],
+"Percentages":[
+ ()=>{const p=pick([5,10,15,20,25,50]),n=pick([40,60,80,100,120,200,240]);return{q:`What is ${p}% of ${n}?`,ans:n*p/100,e:`${n} × ${p}/100 = ${n*p/100}`}},
+ ()=>{const p=pick([10,20,25,50]),n=pick([40,60,80,120,200]),up=Math.random()<.5;const v=n*(100+(up?p:-p))/100;return{q:`${n} is ${up?'increased':'decreased'} by ${p}%. New value?`,ans:v,e:`${n} × ${100+(up?p:-p)}/100 = ${v}`}},
+ ()=>{const o=pick([40,60,80,100,120,200]),p=pick([20,25,50]),v=o*(100+p)/100;return{q:`After a ${p}% increase a value becomes ${v}. What was the original value?`,ans:o,d:[rd(v*(100-p)/100),v-p],e:`Original × ${100+p}/100 = ${v}, so original = ${v} × 100/${100+p} = ${o}`}}
+],
+"Fractions":[
+ ()=>{const d=r(4,12),a=r(1,d-1),b=r(1,d-1);return{q:`${a}/${d} + ${b}/${d} = ?`,ans:fr(a+b,d),d:[`${a+b}/${2*d}`,fr(a*b,d),fr(a+b+1,d),fr(a+b,d+1)],e:`Same denominator: (${a}+${b})/${d} = ${fr(a+b,d)}`}},
+ ()=>{const a=r(1,8),b=r(2,9),c=r(1,8),d=r(2,9);return{q:`${a}/${b} + ${c}/${d} = ?`,ans:fr(a*d+c*b,b*d),d:[`${a+c}/${b+d}`,fr(a*d+c*b+1,b*d),fr(a*c,b*d),fr(Math.abs(a*d-c*b)+2,b*d)],e:`(${a}×${d} + ${c}×${b}) / (${b}×${d}) = ${fr(a*d+c*b,b*d)}`}},
+ ()=>{const a=r(1,9),b=r(2,9),c=r(1,9),d=r(2,9);return{q:`${a}/${b} ÷ ${c}/${d} = ?`,ans:fr(a*d,b*c),d:[fr(a*c,b*d),fr(b*c,a*d),fr(a*d+1,b*c),fr(a*d,b*c+1),fr(a*d+2,b*c)],e:`Flip and multiply: ${a}/${b} × ${d}/${c} = ${fr(a*d,b*c)}`}}
+],
+"Quadratics":[
+ ()=>{const p=r(2,15);return{q:`x² = ${p*p} and x > 0. Find x.`,ans:p,e:`√${p*p} = ${p}`}},
+ ()=>{const p=r(1,9);let q=r(1,9);while(q===p)q=r(1,9);return{q:`Find the larger root of x²${sg(-(p+q))}x${sg(p*q)} = 0.`,ans:Math.max(p,q),e:`Factor: (x − ${p})(x − ${q}) = 0, roots ${p} and ${q}`}},
+ ()=>{if(Math.random()<.5){const a=r(1,5),b=nz(-9,9),c=nz(-6,6);return{q:`Discriminant of ${a}x²${sg(b)}x${sg(c)}?`,ans:b*b-4*a*c,e:`b² − 4ac = ${b*b} − ${4*a*c} = ${b*b-4*a*c}`}}
+  const a=r(1,4),m=r(-6,9),n=r(-6,9),sum=Math.random()<.5;const b=-a*(m+n),c=a*m*n;return{q:`For ${a}x²${sg(b)}x${sg(c)} = 0, what is the ${sum?'sum':'product'} of the roots?`,ans:sum?m+n:m*n,e:sum?`−b/a = ${m+n}`:`c/a = ${m*n}`}}
+],
+"Trigonometry":[
+ ()=>{const T=[['sin 30°','1/2'],['sin 45°','√2/2'],['sin 60°','√3/2'],['cos 30°','√3/2'],['cos 45°','√2/2'],['cos 60°','1/2'],['tan 45°','1'],['tan 30°','1/√3'],['tan 60°','√3'],['sin 90°','1'],['cos 0°','1'],['sin 0°','0']];const t=pick(T);const pool=['0','1/2','√2/2','√3/2','1','1/√3','√3'];return{q:`Value of ${t[0]}?`,ans:t[1],d:sh(pool.filter(x=>x!==t[1])).slice(0,3),e:`Standard value: ${t[0]} = ${t[1]}`}},
+ ()=>{const [a,b,h]=pick([[3,4,5],[5,12,13],[8,15,17],[7,24,25]]);const k=r(1,4);if(Math.random()<.5)return{q:`Right triangle, legs ${a*k} and ${b*k}. Find the hypotenuse.`,ans:h*k,e:`√(${a*k}² + ${b*k}²) = ${h*k}`};return{q:`Right triangle, hypotenuse ${h*k}, one leg ${a*k}. Find the other leg.`,ans:b*k,e:`√(${h*k}² − ${a*k}²) = ${b*k}`}},
+ ()=>{const [o,a,h]=pick([[3,4,5],[5,12,13],[8,15,17],[7,24,25]]);const ask=pick(['cos','tan']);const ans=ask==='cos'?fr(a,h):fr(o,a);return{q:`θ is acute and sin θ = ${o}/${h}. Find ${ask} θ.`,ans,d:[fr(o,h),fr(a,h),fr(o,a),fr(a,o),fr(h,a)].filter(x=>x!==ans),e:`Adjacent = ${a}. cos = adj/hyp, tan = opp/adj. ${ask} θ = ${ans}`}}
+],
+"Derivatives":[
+ ()=>{const a=r(2,9),n=r(2,6);return{q:`d/dx of ${term(a,n)} = ?`,ans:term(a*n,n-1),d:[term(a*n,n),term(a,n-1),term(a*(n-1),n-1),term(a*n+1,n-1),term(a*n,n+1)],e:`Power rule: ${a}·${n} x^${n-1} = ${term(a*n,n-1)}`}},
+ ()=>{const a=r(1,6),b=nz(-9,9),c=nz(-9,9),k=r(-4,5);return{q:`If f(x) = ${a}x²${sg(b)}x${sg(c)}, find f′(${k}).`,ans:2*a*k+b,e:`f′(x) = ${2*a}x${sg(b)}, so f′(${k}) = ${2*a*k+b}`}},
+ ()=>{const a=r(1,4),b=nz(-6,6),c=nz(-9,9),k=r(-3,4);return{q:`Slope of y = ${a}x³${sg(b)}x²${sg(c)}x at x = ${k}?`,ans:3*a*k*k+2*b*k+c,e:`y′ = ${3*a}x²${sg(2*b)}x${sg(c)}, at x=${k}: ${3*a*k*k+2*b*k+c}`}}
+],
+"Integrals":[
+ ()=>{const a=pick([2,4,6,8]),k=r(2,8);return{q:`Evaluate the integral of ${a}x dx from 0 to ${k}.`,ans:a*k*k/2,e:`${a}x²/2 at ${k} = ${a*k*k/2}`}},
+ ()=>{const a=pick([3,6,9]),k=r(1,5);return{q:`Evaluate the integral of ${a}x² dx from 0 to ${k}.`,ans:a*k**3/3,e:`${a/3}x³ at ${k} = ${a*k**3/3}`}},
+ ()=>{const a=pick([3,6,9]),b=pick([2,4,6,8]),k=r(1,4);return{q:`Evaluate the integral of (${a}x² + ${b}x) dx from 0 to ${k}.`,ans:a*k**3/3+b*k*k/2,e:`${a/3}x³ + ${b/2}x² at ${k} = ${a*k**3/3+b*k*k/2}`}}
+],
+"Series":[
+ ()=>{const a=r(1,20),d=r(2,9),n=r(8,20);return{q:`AP: ${a}, ${a+d}, ${a+2*d}, … Find term ${n}.`,ans:a+(n-1)*d,e:`a + (n−1)d = ${a} + ${n-1}×${d} = ${a+(n-1)*d}`}},
+ ()=>{const a=r(1,15),d=r(2,8),n=pick([6,8,10,12,14,16,20]);return{q:`AP: first term ${a}, common difference ${d}. Sum of first ${n} terms?`,ans:n*(2*a+(n-1)*d)/2,e:`n/2 · (2a + (n−1)d) = ${n*(2*a+(n-1)*d)/2}`}},
+ ()=>{const a=r(1,5),q=pick([2,3]),n=r(4,7);if(Math.random()<.5)return{q:`GP: first term ${a}, ratio ${q}. Find term ${n}.`,ans:a*q**(n-1),e:`a·r^(n−1) = ${a}×${q}^${n-1} = ${a*q**(n-1)}`};return{q:`GP: first term ${a}, ratio ${q}. Sum of first ${n} terms?`,ans:a*(q**n-1)/(q-1),e:`a(rⁿ−1)/(r−1) = ${a*(q**n-1)/(q-1)}`}}
+]
 };
-const LV=['Basic','Medium','Advanced'];
-const SERIES=["Advanced Mathematics","Advanced Physics","Electrical Engineering","Electronics Engineering","Mechanical Engineering","Computer Science","Embedded Systems","Robotics Engineering","Control Systems","Sensors and Actuators","Artificial Intelligence","Computer Vision and Perception","Autonomous Robotics","Communication and Networking","Agricultural Robotics","Industrial Robotics","Medical Robotics","Humanoid and Bio-Inspired Robotics","Space Robotics","Underwater Robotics","Advanced Materials and Nanotechnology","Advanced Research and Future Technology","Robotics Manufacturing and Company Development"];
-const RANKS=["Robotics Beginner","Mathematics Explorer","Engineering Student","Electronics Apprentice","Mechanical Designer","Embedded Systems Developer","Robotics Programmer","Robotics Engineer","Autonomous Systems Engineer","AI Robotics Engineer","Advanced Robotics Researcher","Robotics Architect","Master Robotics Researcher","Chief Robotics Innovator"];
-const MATH=[
-{q:"Solve for x: 2x + 6 = 14",a:["4"],e:"2x = 8, so x = 4. / ٻنهي طرفن کان 6 گھٽايو، پوءِ 2 سان ورهايو."},
-{q:"What is sin 30°?",a:["0.5","1/2",".5"],e:"sin 30° = 1/2 (30-60-90 triangle). / 30° جي sine اڌ آهي."},
-{q:"d/dx of x³ = ?",a:["3x^2","3x²","3*x^2","3x2"],e:"Power rule: d/dx xⁿ = n·xⁿ⁻¹, so 3x². / Power rule لاڳو ڪريو."},
-{q:"Determinant of [[2,1],[3,4]] = ?",a:["5"],e:"det = ad − bc = 2·4 − 1·3 = 5. / ad − bc."},
-{q:"∫ 2x dx = ?",a:["x^2+c","x²+c","x^2","x²","x^2 + c","x² + c"],e:"∫ 2x dx = x² + C. / Constant C نه وسارڻ."}];
-let S;
-try{S=JSON.parse(localStorage.getItem("rea")||"null")}catch(e){S=null}
-S=S||{};
-S.done=S.done||{};S.asked=S.asked||0;S.right=S.right||0;S.xp=S.xp||0;S.days=S.days||[];S.wrong=S.wrong||[];S.st=S.st||{};S.mist=S.mist||[];
-function save(){try{localStorage.setItem("rea",JSON.stringify(S))}catch(e){}}
-function today(){return new Date().toISOString().slice(0,10)}
-if(!S.days.includes(today())){S.days.push(today());save()}
-let tab="home",quiz=null,PT="le",PL=1,cur=null,pick=null,rpick=null;
-const $=h=>{document.getElementById("app").innerHTML=h};
-const accT=(t,l)=>{const a=S.st[t+l]||[];return a.length?a.reduce((x,y)=>x+y,0)/a.length:0};
-const mast=(t,l)=>(S.st[t+l]||[]).length>=8&&accT(t,l)>=.8;
-const tm=t=>[1,2,3].every(l=>mast(t,l));
-function rankIdx(){return Math.min(RANKS.length-1,Object.keys(S.done).length)}
-function pct(){return Math.round(Object.keys(S.done).length/SERIES.length*100)}
-function acc(){return S.asked?Math.round(S.right/S.asked*100):0}
-function nav(){return `<nav>${[["home","Home"],["prac","Practice"],["lib","Series"],["exam","Diagnostic"],["rev","Revision"]].map(t=>`<button class="${tab===t[0]?"on":""}" onclick="go('${t[0]}')">${t[1]}</button>`).join("")}</nav>`}
-function go(t){tab=t;quiz=null;render()}
-function setT(k){PT=k;cur=null;render()}
-function setL(l){PL=l;cur=null;render()}
-function qcard(q,sel,cb){const show=sel!==null;return `<div class="card"><div class="qt">${q.q}</div>`+q.o.map((o,i)=>`<button class="o ${show?(i==q.a?'ok':i==sel?'no':''):''}" onclick="${cb}(${i})">${'ABCD'[i]}. ${o}</button>`).join('')+`</div>`}
-function ans(i){
-  if(pick!==null)return;pick=i;const ok=i==cur.a,k=PT+PL;
-  const a=S.st[k]=S.st[k]||[];a.push(ok?1:0);if(a.length>10)a.shift();
-  S.asked++;if(ok){S.right++;S.xp+=10*PL}
-  else{S.mist.unshift({t:PT,l:PL,q:cur});S.mist=S.mist.slice(0,30)}
-  save();render();
+const T=Object.keys(G),L=['Basic','Medium','Advanced'];
+
+function build(t,l){
+ const g=G[t][l]();const ans=String(g.ans);const set=[ans];
+ (g.d||[]).forEach(x=>{x=String(x);if(!set.includes(x))set.push(x)});
+ let n=0;
+ while(set.length<4&&!isNaN(+ans)&&n++<60){const v=String(rd(+ans+pick([-1,1,-2,2,-3,3,5,-5,10])));if(!set.includes(v))set.push(v)}
+ return{q:g.q,ans,e:g.e,t,l,opts:sh(set.slice(0,4))};
 }
+
+const KEY='zuch_v2';
+const fresh=()=>({xp:0,streak:0,best:0,stats:{},rev:[]});
+function load(){try{return Object.assign(fresh(),JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){return fresh()}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+let S=load();
+let tab='home',topic=0,lvl=0,cur=null,picked=null,dg=null,rvI=0,rvPicked=null;
+
+function record(q,ok){
+ const k=q.t+'|'+q.l;const s=S.stats[k]||(S.stats[k]={a:0,c:0});s.a++;
+ const same=x=>x.q===q.q&&x.t===q.t;
+ if(ok){s.c++;S.xp+=10;S.streak++;S.best=Math.max(S.best,S.streak);S.rev=S.rev.filter(x=>!same(x))}
+ else{S.streak=0;if(!S.rev.some(same)){S.rev.unshift(q);S.rev=S.rev.slice(0,60)}}
+ save();
+}
+const starOf=(t,l)=>{const s=S.stats[t+'|'+L[l]];return s&&s.a>=8&&s.c/s.a>=.8};
+
+function qCard(q,p,fn){
+ let h=`<div class="card"><div class="small">${q.t} · ${q.l}</div><div class="q">${q.q}</div>`;
+ q.opts.forEach((o,i)=>{let c='opt';if(p!==null){if(o===q.ans)c+=' ok';else if(i===p)c+=' bad'}
+  h+=`<button class="${c}" ${p!==null?'disabled':''} onclick="${fn}(${i})">${'ABCD'[i]}. ${o}</button>`});
+ if(p!==null)h+=`<div class="exp">${q.opts[p]===q.ans?'✅ Correct!':'❌ Correct answer: '+q.ans}<br>${q.e}</div>`;
+ return h+'</div>';
+}
+
+function vHome(){
+ let a=0,c=0;Object.values(S.stats).forEach(s=>{a+=s.a;c+=s.c});
+ const acc=a?Math.round(c*100/a):0;
+ let stars=0;T.forEach(t=>L.forEach((_,l)=>{if(starOf(t,l))stars++}));
+ let h=`<div class="stats"><div class="stat"><b>${a}</b>Questions solved</div><div class="stat"><b>${acc}%</b>Accuracy</div><div class="stat"><b>${S.xp}</b>XP</div><div class="stat"><b>${S.streak} 🔥</b>Streak (best ${S.best})</div></div>`;
+ h+=`<div class="card"><h2>Stars ${stars} / ${T.length*3}</h2>`;
+ T.forEach((t,i)=>{h+=`<div class="row"><span>${t}</span><span class="st">${[0,1,2].map(l=>starOf(t,l)?'★':'☆').join('')}</span></div>`});
+ h+=`<div class="small" style="margin-top:8px">Mastery: 8+ answers with 80% accuracy in a level gives a star. / هر level ۾ 8 جواب ۽ %80 صحيح ٿين تي ستارو ملندو.</div></div>`;
+ return h+`<div class="card small">Unlimited questions: every question is generated fresh, so they never repeat the same way.</div>`;
+}
+
 function vPractice(){
-  const t=T[PT];
-  let h=`<div class="chips">`+Object.keys(T).map(k=>`<button class="chip ${k==PT?'on':''}" onclick="setT('${k}')">${T[k].n}${tm(k)?' 🏆':''}</button>`).join('')+`</div><div class="chips">`+LV.map((n,i)=>`<button class="chip ${PL==i+1?'on':''}" onclick="setL(${i+1})">${n}${mast(PT,i+1)?' ⭐':''}</button>`).join('')+`</div>`;
-  h+=`<details class="card"><summary><b>Lesson: ${t.n}</b></summary><p>${t.en}</p><p class="ur">${t.sd}</p><p><b>Key idea:</b> ${t.f}</p></details>`;
-  if(!cur){cur=t.g[PL-1]();pick=null}
-  h+=qcard(cur,pick,'ans');
-  if(pick!==null)h+=`<div class="card"><b class="${pick==cur.a?'ok':'bad'}">${pick==cur.a?'Correct! +'+10*PL+' XP':'Incorrect'}</b><p>${cur.e}</p><button onclick="cur=null;render()">Next question</button></div>`;
-  h+=`<p class="ur">Mastery: 8+ answers with 80% accuracy in a level gives a star. / هر level ۾ 8 جواب ۽ 80% صحيح ٿيڻ تي ستارو ملندو.</p>`;
-  return h;
+ if(!cur)cur=build(T[topic],lvl);
+ let h=`<div class="chips">${T.map((t,i)=>`<button class="${i===topic?'on':''}" onclick="setT(${i})">${t}</button>`).join('')}</div>`;
+ h+=`<div class="chips">${L.map((t,i)=>`<button class="${i===lvl?'on':''}" onclick="setL(${i})">${t}</button>`).join('')}</div>`;
+ h+=qCard(cur,picked,'pickP');
+ if(picked!==null)h+=`<button class="go" onclick="nextP()">Next question →</button>`;
+ const s=S.stats[T[topic]+'|'+L[lvl]];
+ if(s)h+=`<div class="small">This level: ${s.c}/${s.a} correct${starOf(topic,lvl)?' · ★ earned':''}</div>`;
+ return h;
 }
-function rans(i){if(rpick!==null)return;rpick=i;render()}
-function rnext(){const m=S.mist.shift();if(rpick!=m.q.a)S.mist.push(m);rpick=null;save();render()}
+function setT(i){topic=i;cur=null;picked=null;render()}
+function setL(i){lvl=i;cur=null;picked=null;render()}
+function pickP(i){if(picked!==null)return;picked=i;record(cur,cur.opts[i]===cur.ans);render()}
+function nextP(){cur=build(T[topic],lvl);picked=null;render();window.scrollTo(0,0)}
+
+function vDiag(){
+ if(!dg)return `<div class="card"><h2>Diagnostic test</h2><p>10 mixed Medium questions across all topics. At the end you see which topics need work.</p><button class="go" onclick="startD()">Start diagnostic</button></div>`;
+ if(dg.i>=dg.qs.length){
+  const sc=dg.res.filter(x=>x.ok).length;const by={};
+  dg.res.forEach(x=>{const b=by[x.t]||(by[x.t]={a:0,c:0});b.a++;if(x.ok)b.c++});
+  let h=`<div class="card"><h2>Score: ${sc} / ${dg.qs.length}</h2><div class="bar"><i style="width:${sc*100/dg.qs.length}%"></i></div>`;
+  Object.keys(by).forEach(t=>{h+=`<div class="row"><span>${t}</span><span>${by[t].c}/${by[t].a} ${by[t].c<by[t].a?'· practice more':'✓'}</span></div>`});
+  return h+`<button class="go" onclick="startD()">Retake</button></div>`;
+ }
+ let h=`<div class="small">Question ${dg.i+1} of ${dg.qs.length}</div>`+qCard(dg.qs[dg.i],dg.p,'pickD');
+ if(dg.p!==null)h+=`<button class="go" onclick="nextD()">${dg.i+1===dg.qs.length?'Finish':'Next →'}</button>`;
+ return h;
+}
+function startD(){dg={qs:Array.from({length:10},()=>build(pick(T),1)),i:0,p:null,res:[]};render()}
+function pickD(i){if(dg.p!==null)return;const q=dg.qs[dg.i];dg.p=i;const ok=q.opts[i]===q.ans;dg.res.push({t:q.t,ok});record(q,ok);render()}
+function nextD(){dg.i++;dg.p=null;render();window.scrollTo(0,0)}
+
 function vRev(){
-  let h='';
-  if(S.mist.length){const m=S.mist[0];
-    h+=`<div class="card"><h2>Revise mistakes (${S.mist.length} left)</h2><div class="ur">${T[m.t].n} · ${LV[m.l-1]}</div></div>`+qcard(m.q,rpick,'rans');
-    if(rpick!==null)h+=`<div class="card"><b class="${rpick==m.q.a?'ok':'bad'}">${rpick==m.q.a?'Correct. Removed from your list.':'Incorrect. It stays in your list.'}</b><p>${m.q.e}</p><button onclick="rnext()">Next</button></div>`;
-  }else h+=`<div class="card"><h2>Revision list</h2><p>No mistakes saved. Wrong answers from Practice appear here.</p></div>`;
-  if(S.wrong.length)h+=`<div class="card"><h2>Diagnostic mistakes</h2>`+S.wrong.map(i=>`<div class="s"><span>${MATH[i].q}</span><span class="tag">${MATH[i].a[0]}</span></div>`).join("")+`</div>`;
-  return h;
+ if(!S.rev.length)return `<div class="card"><h2>Revision list</h2><p>No mistakes saved. Wrong answers from Practice appear here.</p></div>`;
+ if(rvI>=S.rev.length)rvI=0;
+ const q=S.rev[rvI];
+ let h=`<div class="small">${S.rev.length} question(s) to revise. Answer correctly to remove one.</div>`+qCard(q,rvPicked,'pickR');
+ if(rvPicked!==null)h+=`<button class="go" onclick="nextR()">Next →</button>`;
+ return h;
 }
+function pickR(i){if(rvPicked!==null)return;const q=S.rev[rvI];rvPicked=i;record(q,q.opts[i]===q.ans);render()}
+function nextR(){rvPicked=null;rvI++;render();window.scrollTo(0,0)}
+
+const PICS=[
+['01-kinematics.svg','Kinematics'],['02-newtons-laws.svg','Newton'],
+['03-work-energy.svg','Work'],['04-ohms-law.svg','Ohm'],
+['05-series-parallel.svg','Series/Parallel'],['06-binary-numbers.svg','Binary'],
+['07-logic-gates.svg','Logic Gates'],['08-gears.svg','Gears'],
+['09-robot-arm.svg','Robot Arm'],['10-pid-controller.svg','PID'],
+['11-python-for-loop.svg','Python Loop'],['12-quadratic-graph.svg','Quadratic']];
+let picI=0;
+function setPic(i){picI=i;render()}
+function vPics(){
+ let h=`<div class="chips">${PICS.map((p,i)=>`<button class="${i===picI?'on':''}" onclick="setPic(${i})">${p[1]}</button>`).join('')}</div>`;
+ return h+`<div class="card"><img src="${PICS[picI][0]}" alt="${PICS[picI][1]}" style="width:100%;height:auto"></div>`;
+}
+function go(t){tab=t;render()}
+function resetAll(){if(confirm('Delete all saved progress?')){S=fresh();save();cur=null;picked=null;dg=null;rvI=0;rvPicked=null;render()}}
 function render(){
-let h=`<h1><img src="logo.jpg" alt="" onerror="this.style.display='none'" style="width:36px;height:36px;border-radius:8px;vertical-align:middle;margin-right:10px">Zuch</h1><p class="sub">Multi-Purpose Robotics Engineer · روبوٽڪس انجنيئرنگ</p>`+nav();
-if(tab==="home"){
-const r=rankIdx(),n=Object.keys(T).filter(tm).length;
-h+=`<div class="card rank"><div class="ur">Current rank / موجوده درجو</div><b>${RANKS[r]}</b><div class="sub" style="margin:4px 0 0">Next: ${RANKS[Math.min(r+1,13)]}. Ranks are earned by passing assessments.</div></div>
-<div class="card"><h2>Progress</h2><div class="bar"><i style="width:${pct()}%"></i></div><span class="sub">${Object.keys(S.done).length} of ${SERIES.length} series passed (${pct()}%)</span>
-<div class="stats" style="margin-top:12px"><div><b>${acc()}%</b><span>Accuracy</span></div><div><b>${S.asked}</b><span>Questions</span></div><div><b>${S.xp}</b><span>XP</span></div></div>
-<p class="sub" style="margin:12px 0 0">Topics mastered: ${n} of ${Object.keys(T).length} · Study days: ${S.days.length}</p></div>
-<div class="card"><h2>Next step</h2><p>${S.done[0]?"Keep practising topics until each level earns a star.":"Take the Mathematics diagnostic, then practise each topic."}</p><button onclick="go('prac')">Continue practice</button> <button class="ghost" onclick="go('exam')">Diagnostic</button></div>`;
+ const tabs=[['home','Home'],['practice','Practice'],['diag','Diagnostic'],['rev','Revision'],['pics','Diagrams']];
+ let h=`<div class="tabs">${tabs.map(x=>`<button class="${tab===x[0]?'on':''}" onclick="go('${x[0]}')">${x[1]}</button>`).join('')}</div>`;
+ h+=tab==='home'?vHome():tab==='practice'?vPractice():tab==='diag'?vDiag():tab==='pics'?vPics():vRev();
+ h+=`<button class="ghost" onclick="resetAll()">Reset progress</button>`;
+ document.getElementById('app').innerHTML=h;
 }
-if(tab==="prac")h+=vPractice();
-if(tab==="lib"){
-h+=`<div class="card"><h2>All 23 series</h2>`+SERIES.map((n,i)=>`<div class="s"><span>${String(i+1).padStart(2,"0")}  ${n}</span><span class="tag ${S.done[i]?"ok":""}">${S.done[i]?"Passed":i===0?"Practice open":"Locked by prerequisites"}</span></div>`).join("")+`</div><p class="ur">A series counts as complete only after its assessment is passed (80%+). / سيريز تڏهن مڪمل ٿيندي جڏهن امتحان پاس ٿئي.</p>`;
-}
-if(tab==="exam"){
-if(!quiz){h+=`<div class="card"><h2>Mathematics diagnostic</h2><p>5 questions. Answers appear only after you submit. Write "don't know" if unsure.</p><button onclick="startQ()">Begin</button></div>`;
-  h+=`<div class="card"><h2>Topic mastery</h2>`+Object.keys(T).map(k=>`<div><b>${T[k].n}</b>${tm(k)?' 🏆':''}`+[1,2,3].map(l=>`<div class="row"><span class="n">${LV[l-1]}</span><div class="bar"><i style="width:${accT(k,l)*100}%"></i></div><span>${Math.round(accT(k,l)*100)}%${mast(k,l)?' ⭐':''}</span></div>`).join('')+`</div>`).join('')+`</div>`}
-else if(quiz.res){
-const sc=quiz.res.filter(x=>x.ok).length;
-h+=`<div class="card"><h2>Score: ${sc} / ${MATH.length}</h2><p>${sc>=4?"Foundation verified. Series 01 marked as passed for now; deeper topics will still be tested.":"Review the corrections below. Foundations come first."}</p></div>`+quiz.res.map((x,i)=>`<div class="card"><b class="${x.ok?"ok":"bad"}">${x.ok?"Correct":"Incorrect"}</b> — ${MATH[i].q}<br>Your answer: ${x.v||"(blank)"}<br><span class="ur">${MATH[i].e}</span></div>`).join("")+`<button onclick="startQ()">Try again</button>`;
-}else{
-h+=`<div class="card"><h2>Mathematics diagnostic</h2>`+MATH.map((m,i)=>`<div class="q"><label for="q${i}">${i+1}. ${m.q}</label><input type="text" id="q${i}" autocomplete="off"></div>`).join("")+`<button onclick="submitQ()">Submit answers</button></div>`;
-}}
-if(tab==="rev")h+=vRev();
-h+=`<button class="ghost" onclick="resetAll()">Reset progress</button>`;
-$(h);
-}
-function startQ(){quiz={};render()}
-function norm(s){return s.toLowerCase().replace(/\s+/g,"")}
-function submitQ(){
-const res=MATH.map((m,i)=>{const v=document.getElementById("q"+i).value.trim();return{v,ok:m.a.some(a=>norm(a)===norm(v))}});
-const sc=res.filter(x=>x.ok).length;
-S.asked+=MATH.length;S.right+=sc;S.xp+=sc*10;
-S.wrong=res.map((x,i)=>x.ok?null:i).filter(x=>x!==null);
-if(sc>=4)S.done[0]=today();else delete S.done[0];
-save();quiz={res};render();window.scrollTo(0,0);
-}
-function resetAll(){if(confirm("Delete all saved progress?")){S={done:{},asked:0,right:0,xp:0,days:[today()],wrong:[],st:{},mist:[]};save();cur=null;go("home")}}
 render();
 </script>
 </body>
